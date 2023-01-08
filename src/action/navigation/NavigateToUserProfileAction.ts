@@ -2,6 +2,8 @@ import { CurrentPageEnum } from "../../types/CommonTypes"
 import { Action, ActionContext } from "../../types/ActionTypes"
 
 class NavigateToUserProfileAction extends Action<any> {
+  name = 'NavigateToUserProfileAction'
+  
     shouldRun = async (ctx: ActionContext, param: any) => {
       return ctx.currentPage !== CurrentPageEnum.Unknown
     }

@@ -8,6 +8,8 @@ interface UpgradeActionParam {
 }
 
 class UpgradeAction extends Action<UpgradeActionParam> {
+    name = 'UpgradeAction'
+    
     shouldRun = async (ctx: ActionContext, param: UpgradeActionParam) => {
         const item = await db.buildQueue.get(param.buildItemId)
         if (!item)

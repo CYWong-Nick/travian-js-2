@@ -11,6 +11,8 @@ import { randomInterval } from '../../utils/NumberUtils'
 import NavigateToRallyPointFarmListAction from '../navigation/NavigateToRallyPointFarmListAction'
 
 class ScanRaidScheduleAction extends Action<any> {
+    name = 'ScanRaidScheduleAction'
+    
     shouldRun = async (ctx: ActionContext, params: any) => {
         const count = await db.actionQueue.count()
         return count === 0 && ctx.currentPage !== CurrentPageEnum.Unknown

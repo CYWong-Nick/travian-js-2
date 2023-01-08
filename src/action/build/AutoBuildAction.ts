@@ -2,6 +2,8 @@ import { Action, ActionContext } from "../../types/ActionTypes"
 import { autoBuildVillage } from "../../static-data/plan"
 
 class AutoBuildAction extends Action<any> {
+    name = 'AutoBuildAction'
+    
     shouldRun = async (ctx: ActionContext) => {
         return true
     }

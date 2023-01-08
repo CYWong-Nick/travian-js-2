@@ -6,6 +6,8 @@ interface SwitchVillageActionParam {
 }
 
 class SwitchVillageAction extends Action<SwitchVillageActionParam> {
+    name = 'SwitchVillageAction'
+
     shouldRun = async (ctx: ActionContext, param: SwitchVillageActionParam) => {
         return ctx.currentVillage.id !== param.villageId
     }

@@ -24,12 +24,12 @@ class ActionExecutor {
 
         try {
             const s = Date.now()
-            console.log("Start", action.constructor.name)
+            console.log("Start", action.name)
 
             const shuoldRun = await action.shouldRun(context, param)
             if (shuoldRun) {
                 const shouldContinue = await action.run(context, param)
-                console.log("End", action.constructor.name, (Date.now() - s) / 1000)
+                console.log("End", action.name, (Date.now() - s) / 1000)
                 return shouldContinue
             } else {
                 return Promise.resolve(true)

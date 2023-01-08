@@ -8,6 +8,8 @@ interface RaidActionParam {
 }
 
 class RaidAction extends Action<RaidActionParam> {
+    name = 'RaidAction'
+    
     shouldRun = async (ctx: ActionContext) => {
         return isInBuilding('16', 39, { tt: '99' })
     }

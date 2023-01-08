@@ -7,6 +7,8 @@ import keyBy from 'lodash.keyby';
 import { isInBuilding, sleep } from '../../utils/BotUtils';
 
 class UpdateRaidTargetAction extends Action<any> {
+    name = 'UpdateRaidTargetAction'
+    
     shouldRun = async (ctx: ActionContext, params: any) => {
         return isInBuilding('16', 39, { tt: '99' })
     }

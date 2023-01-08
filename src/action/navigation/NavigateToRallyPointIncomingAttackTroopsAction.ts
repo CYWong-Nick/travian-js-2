@@ -22,6 +22,8 @@ const buttonTargetState = [
 ]
 
 class NavigateToRallyPointIncomingAttackTroopsAction extends Action<any> {
+    name = 'NavigateToRallyPointIncomingAttackTroopsAction'
+    
     shouldRun = async (ctx: ActionContext) => {
         return isInBuilding('16', 39, { tt: '1' })
     }

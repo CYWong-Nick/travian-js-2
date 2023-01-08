@@ -19,6 +19,8 @@ const defaultVillage = {
 }
 
 class UpdateVillageListAction extends Action<any> {
+    name = 'UpdateVillageListAction'
+    
     shouldRun = async (ctx: ActionContext, params: any) => {
         return ctx.currentPage !== CurrentPageEnum.Unknown
     }

@@ -2,6 +2,8 @@ import { Action, ActionContext } from "../../types/ActionTypes"
 import { isInBuilding } from "../../utils/BotUtils"
 
 class NavigateToRallyPointFarmListAction extends Action<any> {
+  name = 'NavigateToRallyPointFarmListAction'
+  
   shouldRun = async (ctx: ActionContext, param: any) => {
     return isInBuilding('16', 39)
   }

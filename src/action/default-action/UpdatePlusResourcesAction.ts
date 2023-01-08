@@ -5,6 +5,8 @@ import { Action, ActionContext } from '../../types/ActionTypes'
 import { parseIntIgnoreSep } from '../../utils/NumberUtils'
 
 class UpdatePlusResourcesAction extends Action<any> {
+    name = 'UpdatePlusResourcesAction'
+    
     shouldRun = async (ctx: ActionContext, params: any) => {
         return ctx.currentPage === CurrentPageEnum.PlusResources
     }

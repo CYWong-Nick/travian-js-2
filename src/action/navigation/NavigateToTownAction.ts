@@ -3,6 +3,8 @@ import { toTown } from "../../utils/NavigationUtils"
 import { Action, ActionContext } from "../../types/ActionTypes"
 
 class NavigateToTownAction extends Action<any> {
+    name = 'NavigateToTownAction'
+    
     shouldRun = async (ctx: ActionContext) => {
         return ctx.currentPage !== CurrentPageEnum.Town
     }

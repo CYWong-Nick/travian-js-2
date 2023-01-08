@@ -4,6 +4,8 @@ import { VillageFieldLayoutEnum } from "../../types/VillageTypes"
 import { Action, ActionContext } from "../../types/ActionTypes"
 
 class UpdateFieldBasicInfoAction extends Action<any> {
+    name = 'UpdateFieldBasicInfoAction'
+    
     shouldRun = async (ctx: ActionContext, params: any) => {
         return ctx.currentPage === CurrentPageEnum.Field
     }

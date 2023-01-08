@@ -2,6 +2,8 @@ import { CurrentPageEnum } from "../../types/CommonTypes"
 import { Action, ActionContext } from "../../types/ActionTypes"
 
 class NavigateToPlusResourcesAction extends Action<any> {
+  name = 'NavigateToPlusResourcesAction'
+  
   shouldRun = async (ctx: ActionContext, param: any) => {
     return ctx.currentPage === CurrentPageEnum.PlusOverview
   }

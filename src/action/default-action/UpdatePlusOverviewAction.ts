@@ -6,6 +6,8 @@ import SwitchVillageAction from '../navigation/SwitchVillageAction'
 import NavigateToTownAction from '../navigation/NavigateToTownAction'
 
 class UpdatePlusOverviewAction extends Action<any> {
+    name = 'UpdatePlusOverviewAction'
+    
     shouldRun = async (ctx: ActionContext, params: any) => {
         return ctx.currentPage === CurrentPageEnum.PlusOverview
     }

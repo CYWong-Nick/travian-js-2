@@ -2,6 +2,8 @@ import { Action, ActionContext } from '../../types/ActionTypes';
 import { isInBuilding, sleep } from '../../utils/BotUtils';
 
 class NavigateToRallyPointIncomingTroopsAction extends Action<any> {
+    name = 'NavigateToRallyPointIncomingTroopsAction'
+    
     shouldRun = async (ctx: ActionContext) => {
         return isInBuilding('16', 39, { tt: '1', filter: '1' })
     }

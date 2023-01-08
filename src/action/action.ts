@@ -48,7 +48,7 @@ export const defaultActions: string[] = [
     UpdateUserProfileAction,
     UpdateRaidTargetAction,
     UpdateRallyPointIncomingAttackTroopsAction
-].map(action => action.constructor.name)
+].map(action => action.name)
 
 export const defaultScanners: string[] = [
     ScanUserProfileAction,
@@ -57,7 +57,7 @@ export const defaultScanners: string[] = [
     ScanBuildQueueAction,
     ScanPlusStatisticsAction,
     ScanRallyPointIncomingAttackAction
-].map(action => action.constructor.name)
+].map(action => action.name)
 
 export const actionRegistry: Record<string, Action<any>> = keyBy([
     UpdateVillageListAction,
@@ -92,7 +92,7 @@ export const actionRegistry: Record<string, Action<any>> = keyBy([
     BuildAction,
     UpgradeAction,
     RaidAction
-], e => e.constructor.name)
+], e => e.name)
 
 export class ActionQueueManager {
     itemsFromBeginning: ActionQueueItem[] = []
@@ -105,7 +105,7 @@ export class ActionQueueManager {
     addFromBeginning = <T>(action: Action<T>, param: T) => {
         this.itemsFromBeginning.push({
             id: v4(),
-            action: action.constructor.name,
+            action: action.name,
             param: param ? JSON.stringify(param) : '',
             seq: 0
         })
@@ -116,7 +116,7 @@ export class ActionQueueManager {
     add = <T>(action: Action<T>, param: T) => {
         this.items.push({
             id: v4(),
-            action: action.constructor.name,
+            action: action.name,
             param: param ? JSON.stringify(param) : '',
             seq: 0
         })

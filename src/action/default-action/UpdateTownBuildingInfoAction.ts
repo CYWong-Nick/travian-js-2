@@ -5,6 +5,8 @@ import { Action, ActionContext } from '../../types/ActionTypes';
 import { parseIntIgnoreSep } from '../../utils/NumberUtils';
 
 class UpdateTownBuildingInfoAction extends Action<any> {
+    name = 'UpdateTownBuildingInfoAction'
+    
     shouldRun = async (ctx: ActionContext, params: any) => {
         return ctx.currentPage === CurrentPageEnum.Town
     }

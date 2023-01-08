@@ -6,6 +6,8 @@ import { db } from '../../database/db';
 import notification from '../../notification/notification';
 
 class UpdateRallyPointIncomingAttackTroopsAction extends Action<any> {
+    name = 'UpdateRallyPointIncomingAttackTroopsAction'
+    
     shouldRun = async (ctx: ActionContext) => {
         return isInBuilding('16', 39, { tt: '1' })
             && $('.filterCategory1').parent().hasClass('iconFilterActive')

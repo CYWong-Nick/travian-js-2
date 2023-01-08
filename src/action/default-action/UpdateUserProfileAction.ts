@@ -4,6 +4,8 @@ import { Action, ActionContext } from "../../types/ActionTypes"
 import keyValueDao, { ConfigKey } from "../../database/dao/keyValueDao"
 
 class UpdateUserProfileAction extends Action<any> {
+    name = 'UpdateUserProfileAction'
+    
     shouldRun = async (ctx: ActionContext, params: any) => {
         if (ctx.currentPage !== CurrentPageEnum.UserProfile)
             return false

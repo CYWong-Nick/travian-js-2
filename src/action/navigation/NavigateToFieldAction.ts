@@ -3,6 +3,8 @@ import { toField } from "../../utils/NavigationUtils"
 import { Action, ActionContext } from "../../types/ActionTypes"
 
 class NavigateToFieldAction extends Action<any> {
+    name = 'NavigateToFieldAction'
+    
     shouldRun = async (ctx: ActionContext) => {
         return ctx.currentPage !== CurrentPageEnum.Field
     }

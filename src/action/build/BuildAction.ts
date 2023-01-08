@@ -7,6 +7,8 @@ interface BuildActionParam {
 }
 
 class BuildAction extends Action<BuildActionParam> {
+    name = 'BuildAction'
+    
     shouldRun = async (ctx: ActionContext, param: BuildActionParam) => {
         const item = await db.buildQueue.get(param.buildItemId)
         if (!item)

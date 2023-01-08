@@ -4,6 +4,8 @@ import { Action, ActionContext } from "../../types/ActionTypes"
 
 
 class UpdateTownBasicInfoAction extends Action<any> {
+    name = 'UpdateTownBasicInfoAction'
+    
     shouldRun = async (ctx: ActionContext, params: any) => {
         return ctx.currentPage === CurrentPageEnum.Town
     }

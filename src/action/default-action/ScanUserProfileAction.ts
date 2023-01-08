@@ -8,6 +8,8 @@ import moment from 'moment'
 import NavigateToUserProfileAction from '../navigation/NavigateToUserProfileAction'
 
 class ScanUserProfileAction extends Action<any> {
+    name = 'ScanUserProfileAction'
+    
     shouldRun = async (ctx: ActionContext, params: any) => {
         const count = await db.actionQueue.count()
         return count === 0 && ctx.currentPage !== CurrentPageEnum.Unknown

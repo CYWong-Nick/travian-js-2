@@ -7,6 +7,8 @@ import { Action, ActionContext } from '../../types/ActionTypes';
 import { parseIntIgnoreSep } from '../../utils/NumberUtils';
 
 class UpdateFieldBuildingInfoAction extends Action<any> {
+    name = 'UpdateFieldBuildingInfoAction'
+    
     shouldRun = async (ctx: ActionContext, params: any) => {
         return ctx.currentPage === CurrentPageEnum.Field
     }

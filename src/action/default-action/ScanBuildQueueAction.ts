@@ -14,6 +14,8 @@ import BuildAction from '../build/BuildAction'
 import NavigateToNewBuildingCategoryAction from '../navigation/NavigateToNewBuildingCategoryAction'
 
 class ScanBuildQueueAction extends Action<any> {
+    name = 'ScanBuildQueueAction'
+    
     shouldRun = async (ctx: ActionContext, params: any) => {
         const count = await db.actionQueue.count()
         return count === 0 && ctx.currentPage !== CurrentPageEnum.Unknown

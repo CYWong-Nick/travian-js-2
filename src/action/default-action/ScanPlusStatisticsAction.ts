@@ -9,6 +9,8 @@ import NavigateToPlusResourcesAction from '../navigation/NavigateToPlusResources
 import NavigateToTownAction from '../navigation/NavigateToTownAction'
 
 class ScanVillageOverviewAction extends Action<any> {
+    name = 'ScanVillageOverviewAction'
+    
     shouldRun = async (ctx: ActionContext, params: any) => {
         const count = await db.actionQueue.count()
         return count === 0 && ctx.currentPage !== CurrentPageEnum.Unknown
@@ -27,7 +29,7 @@ class ScanVillageOverviewAction extends Action<any> {
 
             await dao.setValue(moment().add(10, 'minute').valueOf())
         }
-        
+
         return true
     }
 }

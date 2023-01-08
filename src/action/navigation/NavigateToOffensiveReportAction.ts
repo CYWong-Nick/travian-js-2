@@ -2,6 +2,8 @@ import { CurrentPageEnum } from "../../types/CommonTypes"
 import { Action, ActionContext } from "../../types/ActionTypes"
 
 class NavigateToOffensiveReportAction extends Action<any> {
+    name = 'NavigateToOffensiveReportAction'
+    
     shouldRun = async (ctx: ActionContext, param: any) => {
         return ctx.currentPage === CurrentPageEnum.Report
     }

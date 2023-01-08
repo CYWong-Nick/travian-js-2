@@ -7,6 +7,8 @@ interface NavigateToNewBuildingCategoryActionParam {
 }
 
 class NavigateToNewBuildingCategoryAction extends Action<NavigateToNewBuildingCategoryActionParam> {
+    name = 'NavigateToNewBuildingCategoryAction'
+    
     shouldRun = async (ctx: ActionContext, param: NavigateToNewBuildingCategoryActionParam) => {
         return ctx.currentPage === CurrentPageEnum.Building && param.category !== BuildingCategory.Others
     }

@@ -769,7 +769,7 @@ export const autoBuildVillage = async (village: Village) => {
                             }
                         }
 
-                        if (pos == 39) {
+                        if (pos === 39) {
                             continue
                         }
                     }

@@ -10,6 +10,8 @@ import NavigateToRallyPointFarmListAction from '../navigation/NavigateToRallyPoi
 import SwitchVillageAction from '../navigation/SwitchVillageAction'
 
 class ScanRaidLossAction extends Action<any> {
+    name = 'ScanRaidLossAction'
+    
     shouldRun = async (ctx: ActionContext, params: any) => {
         const count = await db.actionQueue.count()
         return count === 0 && ctx.currentPage !== CurrentPageEnum.Unknown

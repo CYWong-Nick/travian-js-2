@@ -7,6 +7,8 @@ import { Action, ActionContext } from '../../types/ActionTypes';
 import keyValueDao, { ConfigKey } from '../../database/dao/keyValueDao';
 
 class UpdateVillageBasicInfo extends Action<any> {
+    name = 'UpdateVillageBasicInfo'
+    
     shouldRun = async (ctx: ActionContext, params: any) => {
         return [CurrentPageEnum.Field, CurrentPageEnum.Town].includes(ctx.currentPage)
     }

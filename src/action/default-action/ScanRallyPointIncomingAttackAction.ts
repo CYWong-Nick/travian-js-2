@@ -11,6 +11,8 @@ import NavigateToRallyPointIncomingAttackTroopsAction from '../navigation/Naviga
 import keyValueDao, { ConfigKey } from '../../database/dao/keyValueDao'
 
 class ScanRallyPointIncomingAttackAction extends Action<any> {
+    name = 'ScanRallyPointIncomingAttackAction'
+    
     shouldRun = async (ctx: ActionContext, params: any) => {
         const count = await db.actionQueue.count()
         return count === 0 && ctx.currentPage !== CurrentPageEnum.Unknown

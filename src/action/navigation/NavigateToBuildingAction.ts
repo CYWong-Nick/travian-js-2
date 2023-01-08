@@ -10,6 +10,8 @@ interface NavigateToBuildingActionParam {
 }
 
 class NavigateToBuildingAction extends Action<NavigateToBuildingActionParam> {
+    name = 'NavigateToBuildingAction'
+    
     shouldRun = async (ctx: ActionContext, param: NavigateToBuildingActionParam) => {
         const location = buildings[param.buildingId].location
         return (location === BuildingLocation.Field && ctx.currentPage === CurrentPageEnum.Field)
