@@ -9,17 +9,18 @@ import NavigateToUserProfileAction from '../navigation/NavigateToUserProfileActi
 
 class ScanUserProfileAction extends Action<any> {
     name = 'ScanUserProfileAction'
-    
+
     shouldRun = async (ctx: ActionContext, params: any) => {
         const count = await db.actionQueue.count()
         return count === 0 && ctx.currentPage !== CurrentPageEnum.Unknown
     }
 
     run = async () => {
+        const capital = (await db.villages.toArray()).find(v => v.isCapital)
         const nextUserProfileScanTimeDao = keyValueDao<number>(ConfigKey.NextUserProfileScanTime, 0)
         const nextUserProfileScanTime = await nextUserProfileScanTimeDao.getValue()
 
-        if (moment(nextUserProfileScanTime).isBefore(moment.now())) {
+        if (!capital || moment(nextUserProfileScanTime).isBefore(moment.now())) {
             await ActionQueueManager.begin()
                 .add(NavigateToUserProfileAction, {})
                 .add(NavigateToTownAction, {})
