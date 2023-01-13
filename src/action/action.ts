@@ -36,11 +36,16 @@ import NavigateToRallyPointIncomingAttackTroopsAction from "./navigation/Navigat
 import ScanRallyPointIncomingAttackAction from "./default-action/ScanRallyPointIncomingAttackAction"
 import UpdateRallyPointIncomingAttackTroopsAction from "./default-action/UpdateRallyPointIncomingAttackTroopsAction"
 import AutoLoginAction from "./default-action/AutoLoginAction"
+import UpdateHeroInfoAction from "./default-action/UpdateHeroInfoAction"
+import AdventureAction from "./adventure/AdventureAction"
+import ScanAdventureAction from "./default-action/ScanAdventureAction"
+import NavigateToAdventureAction from "./navigation/NavigateToAdventureAction"
 
 export const defaultActions: string[] = [
     AutoLoginAction,
     UpdateVillageListAction,
     UpdateVillageBasicInfo,
+    UpdateHeroInfoAction,
     UpdateFieldBasicInfoAction,
     UpdateFieldBuildingInfoAction,
     UpdateTownBasicInfoAction,
@@ -58,13 +63,15 @@ export const defaultScanners: string[] = [
     ScanRaidLossAction,
     ScanBuildQueueAction,
     ScanPlusStatisticsAction,
-    ScanRallyPointIncomingAttackAction
+    ScanRallyPointIncomingAttackAction,
+    ScanAdventureAction
 ].map(action => action.name)
 
 export const actionRegistry: Record<string, Action<any>> = keyBy([
     AutoLoginAction,
     UpdateVillageListAction,
     UpdateVillageBasicInfo,
+    UpdateHeroInfoAction,
     UpdateFieldBasicInfoAction,
     UpdateFieldBuildingInfoAction,
     UpdateTownBasicInfoAction,
@@ -78,8 +85,10 @@ export const actionRegistry: Record<string, Action<any>> = keyBy([
     ScanRaidLossAction,
     ScanBuildQueueAction,
     ScanUserProfileAction,
+    ScanAdventureAction,
     ScanPlusStatisticsAction,
     ScanRallyPointIncomingAttackAction,
+    ScanAdventureAction,
     SwitchVillageAction,
     NavigateToBuildingAction,
     NavigateToNewBuildingCategoryAction,
@@ -91,10 +100,12 @@ export const actionRegistry: Record<string, Action<any>> = keyBy([
     NavigateToRallyPointOverviewAction,
     NavigateToRallyPointIncomingAttackTroopsAction,
     NavigateToUserProfileAction,
+    NavigateToAdventureAction,
     AutoBuildAction,
     BuildAction,
     UpgradeAction,
-    RaidAction
+    RaidAction,
+    AdventureAction
 ], e => e.name)
 
 export class ActionQueueManager {

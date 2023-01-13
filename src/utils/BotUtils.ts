@@ -42,6 +42,9 @@ export const getCurrentPage = (): CurrentPageEnum => {
         case '/village/statistics/resources': {
             return CurrentPageEnum.PlusResources
         }
+        case '/hero/adventures': {
+            return CurrentPageEnum.Adventure
+        }
         default: {
             return CurrentPageEnum.Unknown
         }

@@ -1,6 +1,6 @@
 1. TTD
 // - Randomized Click delay
-- Randomized Action Interval (Configurable?)
+- Randomized Action Interval (Configurable)
 - Auto evade
 - Scout report alert
 - Resources full alert

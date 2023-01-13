@@ -66,7 +66,7 @@ export interface EmbassyLevelAttributes extends CommonBuildingLevelAttributes {
 }
 
 export interface TroopsProductionLevelAttributes extends CommonBuildingLevelAttributes {
-    buildingId: '19' | '20' | '21' | '29' | '30' | '41' | '46'
+    buildingId: '19' | '20' | '21' | '29' | '30' | '41' | '46' | '48'
     trainingTimeFactor: number
 }
 
@@ -87,7 +87,7 @@ export interface DefensiveBuildingLevelAttributes extends CommonBuildingLevelAtt
 }
 
 export interface WallLevelAttributes extends Omit<DefensiveBuildingLevelAttributes, 'buildingId'> {
-    buildingId: '31' | '32' | '33' | '42' | '44'
+    buildingId: '31' | '32' | '33' | '42' | '44' | '47'
     defenseFactor: number
 }
 

@@ -7,10 +7,18 @@ export enum ConfigKey {
     NextRaidReportScanTime = 'NextRaidReportScanTime',
     NextPlusOverviewScanTime = 'NextPlusOverviewScanTime',
     NextRallyPointIncomingAttackScanTime = 'NextRallyPointIncomingAttackScanTime',
+    NextAdventureScanTime = 'NextAdventureScanTime',
     PlayerName = 'PlayerName',
     LoginName = 'LoginName',
-    LoginPassword = 'LoginPassword'
+    LoginPassword = 'LoginPassword',
+    AdventureCount = 'AdventureCount',
+    HeroHealth = 'HeroHealth',
+    HeroStatus = 'HeroStatus',
+    HeroExp = 'HeroExp',
+    HeroLevel = 'HeroLevel'
 }
+
+export type HeroStatus = 'Running' | 'Home' | 'Unknown'
 
 const keyValueDao = <T extends string | number>(key: ConfigKey, defaultValue: T) => {
     const getValue = async (): Promise<T> => {

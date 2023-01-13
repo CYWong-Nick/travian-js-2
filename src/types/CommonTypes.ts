@@ -1,15 +1,16 @@
 export enum CurrentPageEnum {
-    Field = "Field",
-    Town = "Town",
-    Building = "Building",
-    Report = "Report",
-    OffensiveReport = "OffensiveReport",
-    ScoutReport = "ScoutReport",
-    Login = "Login",
-    Unknown = "Unknown",
-    PlusResources = "PlusResources",
-    PlusOverview = "PlusOverview",
-    UserProfile = "UserProfile"
+  Field = "Field",
+  Town = "Town",
+  Building = "Building",
+  Report = "Report",
+  OffensiveReport = "OffensiveReport",
+  ScoutReport = "ScoutReport",
+  Login = "Login",
+  Unknown = "Unknown",
+  PlusResources = "PlusResources",
+  PlusOverview = "PlusOverview",
+  UserProfile = "UserProfile",
+  Adventure = 'Adventure'
 }
 
 export enum Tab {
