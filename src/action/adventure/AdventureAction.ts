@@ -15,7 +15,7 @@ class AdventureAction extends Action<any> {
             const [h, m, s] = duration.split(':').map(cleanParseInt)
             if (h * 3600 + m * 60 + s < 1800) {
                 $(ele).find('.textButtonV2.green')[0].click()
-                return false
+                return true
             }
         }
 
