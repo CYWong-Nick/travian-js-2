@@ -1,6 +1,6 @@
 1. TTD
-- Randomized Click delay
-- Randomized Action Interval
+// - Randomized Click delay
+- Randomized Action Interval (Configurable?)
 - Auto evade
 - Scout report alert
 - Resources full alert
@@ -15,7 +15,6 @@
 - Build queue reorder check level
 - Change build queue re-order to multi-select + drag & drop
 - Allow move build queue item to top
-- Parameterize time schedules
 - Map animal / field list helper
 - Building plan add townhall & residence
 - Demolish
