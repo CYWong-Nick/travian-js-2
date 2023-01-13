@@ -6,7 +6,7 @@ import buildQueueDao from "../../database/dao/buildQueueDao";
 import { db } from "../../database/db";
 import { Village } from "../../types/VillageTypes";
 import { toField, toTown } from "../../utils/NavigationUtils";
-import { parseIntIgnoreSep } from "../../utils/NumberUtils";
+import { cleanParseInt } from "../../utils/NumberUtils";
 
 const StyledButton = styled.button({
     backgroundColor: 'navy',
@@ -40,7 +40,7 @@ const NewBuildingButton: FC<NewBuildingButtonProps> = ({
 
     const handleQueueItem = async (e: EventTarget) => {
         const contract = $(e).parent().parent().find('.contractNew')[0]
-        const buildingId = '' + parseIntIgnoreSep(contract.id)
+        const buildingId = '' + cleanParseInt(contract.id)
 
         const villageBuilding = {
             id: v4(),

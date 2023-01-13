@@ -1,5 +1,5 @@
 import { Action, ActionContext } from '../../types/ActionTypes';
-import { parseIntIgnoreSep } from '../../utils/NumberUtils';
+import { cleanParseInt } from '../../utils/NumberUtils';
 import { isInBuilding } from '../../utils/BotUtils';
 import { IncomingAttack, IncomingAttackType, IncomingAttackUnit } from '../../types/DatabaseTypes';
 import { db } from '../../database/db';
@@ -17,7 +17,7 @@ class UpdateRallyPointIncomingAttackTroopsAction extends Action<any> {
     }
 
     process = (element: JQuery<HTMLElement>, type: IncomingAttackType) => {
-        const id = "" + parseIntIgnoreSep(element.find('img.markAttack')[0].id)
+        const id = "" + cleanParseInt(element.find('img.markAttack')[0].id)
         const timeLeftStr = element.find('.timer').attr('value')
         if (!timeLeftStr) {
             return
@@ -25,15 +25,15 @@ class UpdateRallyPointIncomingAttackTroopsAction extends Action<any> {
 
         const headline = element.find('.troopHeadline').text()
         const attackerName = headline.split(' ')[0].trim()
-        const attackerCoordX = parseIntIgnoreSep(element.find('.coordinateX').text())
-        const attackerCoordY = parseIntIgnoreSep(element.find('.coordinateY').text())
+        const attackerCoordX = cleanParseInt(element.find('.coordinateX').text())
+        const attackerCoordY = cleanParseInt(element.find('.coordinateY').text())
         const timeLeft = parseInt(timeLeftStr)
 
         const villageLink = element.find('.troopHeadline  a:nth-child(2)').attr('href')
         if (!villageLink)
             return
 
-        const villageId = "" + parseIntIgnoreSep(villageLink)
+        const villageId = "" + cleanParseInt(villageLink)
         const now = Date.now()
 
         const entry: IncomingAttack = {

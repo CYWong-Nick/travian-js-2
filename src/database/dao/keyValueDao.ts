@@ -7,7 +7,9 @@ export enum ConfigKey {
     NextRaidReportScanTime = 'NextRaidReportScanTime',
     NextPlusOverviewScanTime = 'NextPlusOverviewScanTime',
     NextRallyPointIncomingAttackScanTime = 'NextRallyPointIncomingAttackScanTime',
-    PlayerName = 'PlayerName'
+    PlayerName = 'PlayerName',
+    LoginName = 'LoginName',
+    LoginPassword = 'LoginPassword'
 }
 
 const keyValueDao = <T extends string | number>(key: ConfigKey, defaultValue: T) => {

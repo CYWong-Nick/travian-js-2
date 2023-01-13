@@ -2,7 +2,7 @@ import { db } from '../../database/db'
 import { CurrentPageEnum } from '../../types/CommonTypes'
 import { Village } from '../../types/VillageTypes'
 import { Action, ActionContext } from '../../types/ActionTypes'
-import { parseIntIgnoreSep } from '../../utils/NumberUtils'
+import { cleanParseInt } from '../../utils/NumberUtils'
 
 class UpdatePlusResourcesAction extends Action<any> {
     name = 'UpdatePlusResourcesAction'
@@ -23,10 +23,10 @@ class UpdatePlusResourcesAction extends Action<any> {
             if (!villageHref)
                 return
 
-            const lumber = parseIntIgnoreSep($(e).find('.lum').text())
-            const clay = parseIntIgnoreSep($(e).find('.clay').text())
-            const iron = parseIntIgnoreSep($(e).find('.iron').text())
-            const crop = parseIntIgnoreSep($(e).find('.crop').text())
+            const lumber = cleanParseInt($(e).find('.lum').text())
+            const clay = cleanParseInt($(e).find('.clay').text())
+            const iron = cleanParseInt($(e).find('.iron').text())
+            const crop = cleanParseInt($(e).find('.crop').text())
 
             const villageId = villageHref.split('newdid=')[1]
 

@@ -1,7 +1,7 @@
 import { Action, ActionContext } from '../../types/ActionTypes';
 import { RaidList, RaidResult, RaidTarget } from '../../types/DatabaseTypes';
 import moment from 'moment';
-import { parseIntIgnoreSep } from '../../utils/NumberUtils';
+import { cleanParseInt } from '../../utils/NumberUtils';
 import { db } from '../../database/db';
 import keyBy from 'lodash.keyby';
 import { isInBuilding, sleep } from '../../utils/BotUtils';
@@ -87,8 +87,8 @@ class UpdateRaidTargetAction extends Action<any> {
                         const lastRaidResourceText = lastRaidEle.find('.carry').attr('alt')
                         if (lastRaidResourceText) {
                             const lastRaidResourceTextParts = lastRaidResourceText.split('.')
-                            lastRaidBounty = parseIntIgnoreSep(lastRaidResourceTextParts[0])
-                            lastRaidCapacity = parseIntIgnoreSep(lastRaidResourceTextParts[1])
+                            lastRaidBounty = cleanParseInt(lastRaidResourceTextParts[0])
+                            lastRaidCapacity = cleanParseInt(lastRaidResourceTextParts[1])
                         }
                     }
 

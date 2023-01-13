@@ -35,8 +35,10 @@ import NavigateToRallyPointOverviewAction from "./navigation/NavigateToRallyPoin
 import NavigateToRallyPointIncomingAttackTroopsAction from "./navigation/NavigateToRallyPointIncomingAttackTroopsAction"
 import ScanRallyPointIncomingAttackAction from "./default-action/ScanRallyPointIncomingAttackAction"
 import UpdateRallyPointIncomingAttackTroopsAction from "./default-action/UpdateRallyPointIncomingAttackTroopsAction"
+import AutoLoginAction from "./default-action/AutoLoginAction"
 
 export const defaultActions: string[] = [
+    AutoLoginAction,
     UpdateVillageListAction,
     UpdateVillageBasicInfo,
     UpdateFieldBasicInfoAction,
@@ -60,6 +62,7 @@ export const defaultScanners: string[] = [
 ].map(action => action.name)
 
 export const actionRegistry: Record<string, Action<any>> = keyBy([
+    AutoLoginAction,
     UpdateVillageListAction,
     UpdateVillageBasicInfo,
     UpdateFieldBasicInfoAction,

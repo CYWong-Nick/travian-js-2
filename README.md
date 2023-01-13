@@ -1,4 +1,6 @@
 1. TTD
+- Randomized Click delay
+- Randomized Action Interval
 - Auto evade
 - Scout report alert
 - Resources full alert
@@ -16,9 +18,9 @@
 - Parameterize time schedules
 - Map animal / field list helper
 - Building plan add townhall & residence
+- Demolish
 
 Bug
-- Fix wall build from empty (Roman okay, pending test with huns)
 - Build plan currently building dependency
 - Fix build from empty already occupied
 - Fix capital not found on first load

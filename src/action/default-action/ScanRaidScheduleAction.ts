@@ -7,7 +7,7 @@ import NavigateToBuildingAction from '../navigation/NavigateToBuildingAction'
 import SwitchVillageAction from '../navigation/SwitchVillageAction'
 import RaidAction from '../raid/RaidAction'
 import moment from 'moment'
-import { randomInterval } from '../../utils/NumberUtils'
+import { randomInteger } from '../../utils/NumberUtils'
 import NavigateToRallyPointFarmListAction from '../navigation/NavigateToRallyPointFarmListAction'
 
 class ScanRaidScheduleAction extends Action<any> {
@@ -40,7 +40,7 @@ class ScanRaidScheduleAction extends Action<any> {
 
                     return {
                         ...e,
-                        nextFarmTime: moment().add(randomInterval(e.minInterval, e.maxInterval), 'second').valueOf()
+                        nextFarmTime: moment().add(randomInteger(e.minInterval, e.maxInterval), 'second').valueOf()
                     }
                 })
         )

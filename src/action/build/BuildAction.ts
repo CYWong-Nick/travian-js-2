@@ -8,7 +8,7 @@ interface BuildActionParam {
 
 class BuildAction extends Action<BuildActionParam> {
     name = 'BuildAction'
-    
+
     shouldRun = async (ctx: ActionContext, param: BuildActionParam) => {
         const item = await db.buildQueue.get(param.buildItemId)
         if (!item)
@@ -36,7 +36,6 @@ class BuildAction extends Action<BuildActionParam> {
         }
 
         const buildButton = $(`#contract_building${item.buildingId} .green.new`)[0]
-       
         if (buildButton) {
             await db.buildQueue.delete(item.id)
             buildButton.click()

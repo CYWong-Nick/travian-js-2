@@ -2,7 +2,7 @@ import { v4 } from 'uuid';
 import { db } from '../../database/db';
 import { buildings } from '../../static-data/building';
 import { CurrentPageEnum } from '../../types/CommonTypes';
-import { parseIntIgnoreSep } from '../../utils/NumberUtils';
+import { cleanParseInt } from '../../utils/NumberUtils';
 import { Action, ActionContext } from '../../types/ActionTypes';
 import keyValueDao, { ConfigKey } from '../../database/dao/keyValueDao';
 
@@ -15,12 +15,12 @@ class UpdateVillageBasicInfo extends Action<any> {
 
     run = async (ctx: ActionContext) => {
         const currentVillageId = ctx.currentVillage.id
-        const warehouseCapacity = parseIntIgnoreSep($('.warehouse .capacity .value').text())
-        const granaryCapacity = parseIntIgnoreSep($('.granary .capacity .value').text())
-        const lumber = parseIntIgnoreSep($('#l1').text())
-        const clay = parseIntIgnoreSep($('#l2').text())
-        const iron = parseIntIgnoreSep($('#l3').text())
-        const crop = parseIntIgnoreSep($('#l4').text())
+        const warehouseCapacity = cleanParseInt($('.warehouse .capacity .value').text())
+        const granaryCapacity = cleanParseInt($('.granary .capacity .value').text())
+        const lumber = cleanParseInt($('#l1').text())
+        const clay = cleanParseInt($('#l2').text())
+        const iron = cleanParseInt($('#l3').text())
+        const crop = cleanParseInt($('#l4').text())
 
         const playerName = $('.playerName').text()
         await keyValueDao<string>(ConfigKey.PlayerName, '').setValue(playerName)
@@ -57,7 +57,7 @@ class UpdateVillageBasicInfo extends Action<any> {
                 id: v4(),
                 villageId: currentVillageId,
                 buildingId,
-                targetLevel: parseIntIgnoreSep(level),
+                targetLevel: cleanParseInt(level),
                 targetCompletionTime: Date.now() + parseInt(duration) * 1000
             }
         }).toArray()

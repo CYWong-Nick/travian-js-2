@@ -1,7 +1,7 @@
 import { Action, ActionContext } from '../../types/ActionTypes';
 import { isInBuilding, sleep } from '../../utils/BotUtils';
 import { db } from '../../database/db';
-import { parseIntIgnoreSep } from '../../utils/NumberUtils';
+import { cleanParseInt } from '../../utils/NumberUtils';
 
 interface RaidActionParam {
     raidScheduledId: string
@@ -26,7 +26,7 @@ class RaidAction extends Action<RaidActionParam> {
         for (let raidList of $('.raidList')) {
             const listEle = $(raidList)
             const listName = listEle.find('.listName').text().trim()
-            const listSize = parseIntIgnoreSep(listEle.find('.slotsCount').text())
+            const listSize = cleanParseInt(listEle.find('.slotsCount').text())
             
             if (listName.startsWith(raidSchedule.prefix) && listSize) {
                 listEle.find('button[value=Start]')[0].click()

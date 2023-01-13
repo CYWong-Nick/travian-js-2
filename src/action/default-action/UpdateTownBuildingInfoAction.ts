@@ -2,7 +2,7 @@ import { v4 } from 'uuid';
 import { db } from '../../database/db';
 import { CurrentPageEnum } from '../../types/CommonTypes';
 import { Action, ActionContext } from '../../types/ActionTypes';
-import { parseIntIgnoreSep } from '../../utils/NumberUtils';
+import { cleanParseInt } from '../../utils/NumberUtils';
 
 class UpdateTownBuildingInfoAction extends Action<any> {
     name = 'UpdateTownBuildingInfoAction'
@@ -40,7 +40,7 @@ class UpdateTownBuildingInfoAction extends Action<any> {
                 const upgradeLevel = notice.length ?
                     Math.max(
                         ...notice
-                            .map((_, e) => parseIntIgnoreSep(e.textContent || ''))
+                            .map((_, e) => cleanParseInt(e.textContent || ''))
                             .toArray()
                     )
                     : null

@@ -3,7 +3,7 @@ import moment from "moment";
 import { FC, useState } from "react";
 import styled from "styled-components";
 import { v4 } from "uuid";
-import { ConfigKey, useKeyValueLiveQuery } from "../../database/dao/keyValueDao";
+import keyValueDao, { ConfigKey, useKeyValueLiveQuery } from "../../database/dao/keyValueDao";
 import { db } from "../../database/db";
 import { NotificationChannelType, NotificationTarget, RaidSchedule } from "../../types/DatabaseTypes";
 
@@ -30,9 +30,22 @@ const SettingViewContainer: FC = () => {
         nextFarmTime: 0
     })
 
+    const [loginNameUpdate, setLoginNameUpdate] = useState<string | undefined>()
+    const [loginPasswordUpdate, setLoginPasswordUpdate] = useState<string | undefined>()
+
     const nextPlusOverview = useKeyValueLiveQuery(ConfigKey.NextPlusOverviewScanTime)
     const nextRaidReportCheck = useKeyValueLiveQuery(ConfigKey.NextRaidReportScanTime)
     const nextUserProfileUpdate = useKeyValueLiveQuery(ConfigKey.NextUserProfileScanTime)
+    const loginName = useKeyValueLiveQuery(ConfigKey.LoginName)
+    const loginPassword = useKeyValueLiveQuery(ConfigKey.LoginPassword)
+
+    const handleSaveLoginName = async () => {
+        loginNameUpdate && await keyValueDao<string>(ConfigKey.LoginName, '').setValue(loginNameUpdate)
+    }
+
+    const handleSaveLoginPassword = async () => {
+        loginPasswordUpdate && await keyValueDao<string>(ConfigKey.LoginPassword, '').setValue(loginPasswordUpdate)
+    }
 
     const notificationTargets = useLiveQuery(() => db.notificationTarget.toArray())
     const [notificationTargetUpdates, setNotificationTargetUpdates] = useState<Record<string, NotificationTarget>>({})
@@ -162,6 +175,20 @@ const SettingViewContainer: FC = () => {
                             <th>Next user profile update</th>
                             <td>{moment(nextUserProfileUpdate).format()}</td>
                         </tr>
+                        <tr>
+                            <th>Login Name</th>
+                            <td>
+                                <input value={(loginNameUpdate ?? loginName) || ''} onChange={e => setLoginNameUpdate(e.target.value)} />
+                                <button onClick={handleSaveLoginName}>Save</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Login Password</th>
+                            <td>
+                                <input type="password" value={(loginPasswordUpdate ?? loginPassword) || ''} onChange={e => setLoginPasswordUpdate(e.target.value)} />
+                                <button onClick={handleSaveLoginPassword}>Save</button>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -246,7 +273,7 @@ const SettingViewContainer: FC = () => {
                                         </div>
                                     </>
                                 }
-                                 {item.channelType === NotificationChannelType.Discord &&
+                                {item.channelType === NotificationChannelType.Discord &&
                                     <>
                                         <div>
                                             <label>Discord Webhook ID</label>
