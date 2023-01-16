@@ -12,7 +12,7 @@ class Notification {
 
     doSendTelegram = async (target: NotificationTarget, content: string) => {
         const header = await this.getMessaageHeader()
-        fetch(`https://api.telegram.org/bot${target.telegramToken}/sendMessage`, {
+        await fetch(`https://api.telegram.org/bot${target.telegramToken}/sendMessage`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -28,7 +28,7 @@ class Notification {
 
     doSendDiscord = async (target: NotificationTarget, content: string) => {
         const header = await this.getMessaageHeader()
-        fetch(`https://discord.com/api/webhooks/${target.discordWebhookId}/${target.discordWebhookToken}`, {
+        await fetch(`https://discord.com/api/webhooks/${target.discordWebhookId}/${target.discordWebhookToken}`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
