@@ -5,18 +5,16 @@ import { IncomingAttack, IncomingAttackType, IncomingAttackUnit } from '../../ty
 import { db } from '../../database/db';
 import notification from '../../notification/notification';
 
+type IncomingAttackUpdate = Omit<IncomingAttack, 'troopEvadeCompleted' | 'resourceEvadeCompleted'>
+
 class UpdateRallyPointIncomingAttackTroopsAction extends Action<any> {
     name = 'UpdateRallyPointIncomingAttackTroopsAction'
 
     shouldRun = async (ctx: ActionContext) => {
         return isInBuildingAtPosition('16', 39, { tt: '1' })
-            && $('.filterCategory1').parent().hasClass('iconFilterActive')
-            && $('.subFilterCategory1').parent().hasClass('iconFilterActive')
-            && !$('.subFilterCategory2').parent().hasClass('iconFilterActive')
-            && !$('.subFilterCategory3').parent().hasClass('iconFilterActive')
     }
 
-    process = (element: JQuery<HTMLElement>, type: IncomingAttackType) => {
+    process = (villageId: string, element: JQuery<HTMLElement>, type: IncomingAttackType) => {
         const id = "" + cleanParseInt(element.find('img.markAttack')[0].id)
         const timeLeftStr = element.find('.timer').attr('value')
         if (!timeLeftStr) {
@@ -29,14 +27,9 @@ class UpdateRallyPointIncomingAttackTroopsAction extends Action<any> {
         const attackerCoordY = cleanParseInt(element.find('.coordinateY').text())
         const timeLeft = parseInt(timeLeftStr)
 
-        const villageLink = element.find('.troopHeadline  a:nth-child(2)').attr('href')
-        if (!villageLink)
-            return
-
-        const villageId = "" + cleanParseInt(villageLink)
         const now = Date.now()
 
-        const entry: IncomingAttack = {
+        const entry: IncomingAttackUpdate = {
             id,
             type,
             attackerName,
@@ -44,9 +37,7 @@ class UpdateRallyPointIncomingAttackTroopsAction extends Action<any> {
             attackerCoordY,
             villageId,
             arrivalLocalTime: now + timeLeft * 1000,
-            updatedAt: now,
-            troopEvadeCompleted: false,
-            resourceEvadeCompleted: false
+            updatedAt: now
         }
 
         const unitNames = element.find('.units .uniticon img')
@@ -68,11 +59,11 @@ class UpdateRallyPointIncomingAttackTroopsAction extends Action<any> {
     }
 
     run = async (ctx: ActionContext) => {
-        const attacks: IncomingAttack[] = []
+        const attacks: IncomingAttackUpdate[] = []
         const attackUnits: Record<string, IncomingAttackUnit[]> = {}
 
         for (const ele of $('.troop_details.inRaid')) {
-            const result = this.process($(ele), IncomingAttackType.Raid)
+            const result = this.process(ctx.currentVillage.id, $(ele), IncomingAttackType.Raid)
             if (result) {
                 const { entry, units } = result
                 attacks.push(entry)
@@ -81,7 +72,7 @@ class UpdateRallyPointIncomingAttackTroopsAction extends Action<any> {
         }
 
         for (const ele of $('.troop_details.inAttack')) {
-            const result = this.process($(ele), IncomingAttackType.Attack)
+            const result = this.process(ctx.currentVillage.id, $(ele), IncomingAttackType.Attack)
             if (result) {
                 const { entry, units } = result
                 attacks.push(entry)
@@ -89,15 +80,23 @@ class UpdateRallyPointIncomingAttackTroopsAction extends Action<any> {
             }
         }
 
-        const existing = await db.incomingAttack.toArray()
-        const outdatedIds = existing.filter(e => !attacks.find(a => a.id === e.id)).map(e => e.id)
+        const existingAttacks = await db.incomingAttack.toArray()
+        const mergedAttacks: IncomingAttack[] = attacks.map(a => {
+            const existingAttack = existingAttacks.find(ea => ea.id === a.id)
+            return {
+                ...a,
+                troopEvadeCompleted: existingAttack?.troopEvadeCompleted || false,
+                resourceEvadeCompleted: existingAttack?.resourceEvadeCompleted || false
+            }
+        })
+        const outdatedIds = existingAttacks.filter(e => !attacks.find(a => a.id === e.id)).map(e => e.id)
 
         await db.incomingAttack.bulkDelete(outdatedIds)
         await db.incomingAttackUnit.where('incomingAttackId').anyOf(outdatedIds).delete()
-        await db.incomingAttack.bulkPut(attacks)
+        await db.incomingAttack.bulkPut(mergedAttacks)
         await db.incomingAttackUnit.bulkPut(Object.values(attackUnits).flatMap(e => e))
 
-        for (const attack of attacks.filter(e => !existing.find(a => a.id === e.id))) {
+        for (const attack of mergedAttacks.filter(e => !existingAttacks.find(a => a.id === e.id))) {
             await notification.notificationRallyPointAttack(ctx.currentVillage.name, attack, attackUnits[attack.id])
         }
 

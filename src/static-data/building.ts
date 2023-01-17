@@ -11640,6 +11640,48 @@ export const buildingLevelAttributes: Record<string, BuildingLevelAttributes> = 
         "defense": 17
     },
     {
+        "id": "47|10",
+        "buildingId": "47",
+        "level": 10,
+        "lumber": 1475,
+        "clay": 920,
+        "iron": 740,
+        "crop": 555,
+        "cropConsumption": 1,
+        "time": 2567,
+        "culturePoint": 6,
+        "defense": 22,
+        "defenseFactor": 1.22
+    },
+    {
+        "id": "47|11",
+        "buildingId": "47",
+        "level": 11,
+        "lumber": 1890,
+        "clay": 1180,
+        "iron": 945,
+        "crop": 710,
+        "cropConsumption": 1,
+        "time": 3033,
+        "culturePoint": 7,
+        "defense": 24,
+        "defenseFactor": 1.24
+    },
+    {
+        "id": "47|12",
+        "buildingId": "47",
+        "level": 12,
+        "lumber": 2420,
+        "clay": 1510,
+        "iron": 1210,
+        "crop": 905,
+        "cropConsumption": 1,
+        "time": 3583,
+        "culturePoint": 9,
+        "defense": 27,
+        "defenseFactor": 1.27
+    },
+    {
         "id": "48|1",
         "buildingId": "48",
         "level": 1,

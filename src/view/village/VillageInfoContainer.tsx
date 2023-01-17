@@ -107,8 +107,8 @@ const VillageInfoContainer: FC<VillageInfoContainerProps> = ({
         toField()
     }
 
-    const handleSaveResourceEvasion = () => {
-        db.villages.put({
+    const handleSaveResourceEvasion = async () => {
+        await db.villages.put({
             ...village,
             enableResourceEvade: enableResourceEvade ?? village.enableResourceEvade,
             resourceEvadeTargetVillageId: resourceEvadeTargetVillageId ?? village.resourceEvadeTargetVillageId
@@ -169,7 +169,7 @@ const VillageInfoContainer: FC<VillageInfoContainerProps> = ({
                     <tr>
                         <th>Res. Evasion</th>
                         <td>
-                            <input type="checkbox" checked={enableResourceEvade ?? village.enableResourceEvade} onClick={() => setEnableResourceEvade(!(enableResourceEvade ?? village.enableResourceEvade))} />
+                            <input type="checkbox" checked={enableResourceEvade ?? !!village.enableResourceEvade} onChange={() => setEnableResourceEvade(!(enableResourceEvade ?? village.enableResourceEvade))} />
                             <select value={resourceEvadeTargetVillageId ?? village.resourceEvadeTargetVillageId} onChange={e => setResourceEvadeTargetVillageId(e.target.value)} >
                                 {villages?.map(v =>
                                     <option key={v.id} value={v.id} >{v.name}</option>

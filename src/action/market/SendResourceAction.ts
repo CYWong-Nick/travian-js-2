@@ -1,7 +1,7 @@
 import { db } from "../../database/db"
 import { Action, ActionContext } from "../../types/ActionTypes"
 import { Village } from "../../types/VillageTypes"
-import { isInBuilding } from "../../utils/BotUtils"
+import { isInBuilding, sleep } from "../../utils/BotUtils"
 
 interface SendResourceActionParam {
     lumber?: number
@@ -60,7 +60,14 @@ class SendResourceAction extends Action<SendResourceActionParam> {
         $('.coordinates.x').val(param.targetVillage.coordX)
         $('.coordinates.y').val(param.targetVillage.coordY)
 
-        return true
+        $('.green.prepare').trigger('click')
+
+        while (!$('.green.sendRessources').length) {
+            await sleep(0.5)
+        }
+        $('.green.sendRessources').trigger('click')
+
+        return false
     }
 }
 
