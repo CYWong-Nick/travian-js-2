@@ -8,7 +8,7 @@ import { isInBuildingAtPosition, sleep } from '../../utils/BotUtils';
 
 class UpdateRaidTargetAction extends Action<any> {
     name = 'UpdateRaidTargetAction'
-    
+
     shouldRun = async (ctx: ActionContext, params: any) => {
         return isInBuildingAtPosition('16', 39, { tt: '99' })
     }
@@ -93,7 +93,9 @@ class UpdateRaidTargetAction extends Action<any> {
                     }
 
                     const current = raidTargetMap[id]
-                    if ((!current || current.lastRaidTime < lastRaidMoment.valueOf()) && lastRaidResult === RaidResult.TotalLoss) {
+                    if ((!current || current.lastRaidTime < lastRaidMoment.valueOf())
+                        && lastRaidResult !== RaidResult.Safe
+                    ) {
                         if (e.classList.contains('slotActive')) {
                             $(e).find('input')[0].click()
                         }

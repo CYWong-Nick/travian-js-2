@@ -2,7 +2,7 @@
 - Randomized Click delay (Configurable)
 - Randomized Action Interval (Configurable)
 - Auto evade troop
-- Auto evade resource
+- Plus attack alert scan number of attacks
 - Scout report alert
 - Resources full alert
 - Build queue empty alert
@@ -23,4 +23,3 @@
 
 2. Bug
 - Stop raid when partial loss
-- Fix wall build queue (click +)
