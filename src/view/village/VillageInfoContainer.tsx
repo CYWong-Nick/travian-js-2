@@ -1,5 +1,5 @@
 import { useLiveQuery } from "dexie-react-hooks";
-import { FC } from "react";
+import { FC, useState } from "react";
 import styled from "styled-components";
 import { db } from "../../database/db";
 import { buildings } from "../../static-data/building";
@@ -7,7 +7,6 @@ import moment from 'moment'
 import { BuildingLocation } from "../../types/BuildingTypes";
 import { Village } from "../../types/VillageTypes";
 import { ActionQueueManager } from "../../action/action";
-import NavigateToFieldAction from "../../action/navigation/NavigateToFieldAction";
 import NavigateToTownAction from "../../action/navigation/NavigateToTownAction";
 import AutoBuildAction from "../../action/build/AutoBuildAction";
 import { toField } from "../../utils/NavigationUtils";
@@ -31,6 +30,9 @@ const VillageInfoContainer: FC<VillageInfoContainerProps> = ({
     const constructions = useLiveQuery(() => db.currentBuildQueue.where('villageId').equals(village.id).sortBy('targetCompletionTime'), [village.id])
     const fields = villageBuildings?.filter(vb => buildings[vb.buildingId]?.location === BuildingLocation.Field)
     const townBuildings = villageBuildings?.filter(vb => buildings[vb.buildingId]?.location === BuildingLocation.Town)
+
+    const [enableResourceEvade, setEnableResourceEvade] = useState<boolean | null>(null)
+    const [resourceEvadeTargetVillageId, setResourceEvadeTargetVillageId] = useState<string | null>(null)
 
     const handleRemoveBuildQueueItem = async (id: string) => {
         const item = await db.buildQueue.get(id)
@@ -105,6 +107,14 @@ const VillageInfoContainer: FC<VillageInfoContainerProps> = ({
         toField()
     }
 
+    const handleSaveResourceEvasion = () => {
+        db.villages.put({
+            ...village,
+            enableResourceEvade: enableResourceEvade ?? village.enableResourceEvade,
+            resourceEvadeTargetVillageId: resourceEvadeTargetVillageId ?? village.resourceEvadeTargetVillageId
+        })
+    }
+
     return <VillageInfoViewContainer>
         <div>
             <h3>Basic Info</h3>
@@ -159,12 +169,13 @@ const VillageInfoContainer: FC<VillageInfoContainerProps> = ({
                     <tr>
                         <th>Res. Evasion</th>
                         <td>
-                            <input type="checkbox" checked={village.enableResourceEvade} />
-                            <select value={village.resourceEvadeVillageId}>
+                            <input type="checkbox" checked={enableResourceEvade ?? village.enableResourceEvade} onClick={() => setEnableResourceEvade(!(enableResourceEvade ?? village.enableResourceEvade))} />
+                            <select value={resourceEvadeTargetVillageId ?? village.resourceEvadeTargetVillageId} onChange={e => setResourceEvadeTargetVillageId(e.target.value)} >
                                 {villages?.map(v =>
                                     <option key={v.id} value={v.id} >{v.name}</option>
                                 )}
-                            </select>   
+                            </select>
+                            <button onClick={handleSaveResourceEvasion}>Save</button>
                         </td>
                     </tr>
                 </tbody>

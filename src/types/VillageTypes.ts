@@ -19,7 +19,7 @@ export interface Village {
     cropCapacity: number
     plusAttackStartTime: number
     enableResourceEvade: boolean
-    resourceEvadeVillageId: string
+    resourceEvadeTargetVillageId: string
 }
 
 export enum VillageFieldType {

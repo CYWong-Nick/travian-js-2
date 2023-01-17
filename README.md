@@ -9,7 +9,6 @@
 - Custom Farm
 - Non plus support
 - Auto train
-- Auto adventure
 - Auto party
 - Auto send resrouces
 - Trade route scan

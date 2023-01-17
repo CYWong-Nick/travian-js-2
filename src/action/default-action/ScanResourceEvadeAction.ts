@@ -10,7 +10,7 @@ import NavigateToMarketSendResourceAction from '../navigation/NavigateToMarketSe
 import SendResourceAction from '../market/SendResourceAction'
 
 class ScanResourceEvadeAction extends Action<any> {
-    name = 'ScanAdventureAction'
+    name = 'ScanResourceEvadeAction'
 
     shouldRun = async (ctx: ActionContext, params: any) => {
         const count = await db.actionQueue.count()
@@ -31,7 +31,7 @@ class ScanResourceEvadeAction extends Action<any> {
 
         for (const e of resourceEvasions) {
             const village = villages.find(v => v.id === e.villageId)
-            const targetVillage = villages.find(v => v.id === village?.resourceEvadeVillageId)
+            const targetVillage = villages.find(v => v.id === village?.resourceEvadeTargetVillageId)
             const market = await db.villageBuildings.where({ villageId: e.villageId, buildingId: '17' }).first()
             if (!market || !targetVillage) {
                 continue
