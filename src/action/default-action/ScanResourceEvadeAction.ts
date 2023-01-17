@@ -25,7 +25,7 @@ class ScanResourceEvadeAction extends Action<any> {
 
         const resourceEvasions = incomingAttacks.filter(e =>
             !e.resourceEvadeCompleted
-            && moment(e.arrivalLocalTime).diff(moment(), 'minute') <= 20
+            && moment(e.arrivalLocalTime).diff(moment(), 'minute') <= 1
             && villages.find(v => v.id === e.villageId)?.enableResourceEvade
         )
 
