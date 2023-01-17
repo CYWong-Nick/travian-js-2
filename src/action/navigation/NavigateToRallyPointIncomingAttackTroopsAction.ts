@@ -1,5 +1,5 @@
 import { Action, ActionContext } from '../../types/ActionTypes';
-import { isInBuilding } from '../../utils/BotUtils';
+import { isInBuildingAtPosition } from '../../utils/BotUtils';
 import { ActionQueueManager } from '../action';
 
 const buttonTargetState = [
@@ -25,7 +25,7 @@ class NavigateToRallyPointIncomingAttackTroopsAction extends Action<any> {
     name = 'NavigateToRallyPointIncomingAttackTroopsAction'
     
     shouldRun = async (ctx: ActionContext) => {
-        return isInBuilding('16', 39, { tt: '1' })
+        return isInBuildingAtPosition('16', 39, { tt: '1' })
     }
 
     toggleToState = async (selector: string, checked: boolean): Promise<boolean> => {

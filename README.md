@@ -1,7 +1,8 @@
 1. TTD
-// - Randomized Click delay
+- Randomized Click delay (Configurable)
 - Randomized Action Interval (Configurable)
-- Auto evade
+- Auto evade troop
+- Auto evade resource
 - Scout report alert
 - Resources full alert
 - Build queue empty alert
@@ -9,17 +10,18 @@
 - Non plus support
 - Auto train
 - Auto adventure
+- Auto party
+- Auto send resrouces
 - Trade route scan
-- Raid distance calculation
-- VPN rotation
+- Raid distance optimization
 - Build queue reorder check level
 - Change build queue re-order to multi-select + drag & drop
 - Allow move build queue item to top
-- Map animal / field list helper
+- Map animal / field layout helper
 - Building plan add townhall & residence
-- Demolish
+- Demolish queue
+- Retry notification if fail
 
-Bug
-- Build plan currently building dependency
-- Fix build from empty already occupied
-- Fix capital not found on first load
+2. Bug
+- Stop raid when partial loss
+- Fix wall build queue (click +)

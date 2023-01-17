@@ -25,6 +25,7 @@ const VillageInfoViewContainer = styled.div({
 const VillageInfoContainer: FC<VillageInfoContainerProps> = ({
     village
 }) => {
+    const villages = useLiveQuery(() => db.villages.toArray())
     const villageBuildings = useLiveQuery(() => db.villageBuildings.where('villageId').equals(village.id).sortBy('position'), [village.id])
     const buildQueue = useLiveQuery(() => db.buildQueue.where('villageId').equals(village.id).sortBy('seq'), [village.id])
     const constructions = useLiveQuery(() => db.currentBuildQueue.where('villageId').equals(village.id).sortBy('targetCompletionTime'), [village.id])
@@ -153,6 +154,17 @@ const VillageInfoContainer: FC<VillageInfoContainerProps> = ({
                                     {buildings[e.buildingId].name} Level {e.targetLevel} {moment(e.targetCompletionTime).format()}
                                 </div>
                             )}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Res. Evasion</th>
+                        <td>
+                            <input type="checkbox" checked={village.enableResourceEvade} />
+                            <select value={village.resourceEvadeVillageId}>
+                                {villages?.map(v =>
+                                    <option key={v.id} value={v.id} >{v.name}</option>
+                                )}
+                            </select>   
                         </td>
                     </tr>
                 </tbody>

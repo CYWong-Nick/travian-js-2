@@ -1,11 +1,11 @@
 import { Action, ActionContext } from "../../types/ActionTypes"
-import { isInBuilding } from "../../utils/BotUtils"
+import { isInBuildingAtPosition } from "../../utils/BotUtils"
 
 class NavigateToRallyPointOverviewAction extends Action<any> {
   name = 'NavigateToRallyPointOverviewAction'
   
   shouldRun = async (ctx: ActionContext, param: any) => {
-    return isInBuilding('16', 39)
+    return isInBuildingAtPosition('16', 39)
   }
 
   run = async (ctx: ActionContext, param: any) => {

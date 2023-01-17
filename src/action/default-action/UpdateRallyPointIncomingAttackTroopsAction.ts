@@ -1,6 +1,6 @@
 import { Action, ActionContext } from '../../types/ActionTypes';
 import { cleanParseInt } from '../../utils/NumberUtils';
-import { isInBuilding } from '../../utils/BotUtils';
+import { isInBuildingAtPosition } from '../../utils/BotUtils';
 import { IncomingAttack, IncomingAttackType, IncomingAttackUnit } from '../../types/DatabaseTypes';
 import { db } from '../../database/db';
 import notification from '../../notification/notification';
@@ -9,7 +9,7 @@ class UpdateRallyPointIncomingAttackTroopsAction extends Action<any> {
     name = 'UpdateRallyPointIncomingAttackTroopsAction'
     
     shouldRun = async (ctx: ActionContext) => {
-        return isInBuilding('16', 39, { tt: '1' })
+        return isInBuildingAtPosition('16', 39, { tt: '1' })
             && $('.filterCategory1').parent().hasClass('iconFilterActive')
             && $('.subFilterCategory1').parent().hasClass('iconFilterActive')
             && !$('.subFilterCategory2').parent().hasClass('iconFilterActive')
@@ -44,7 +44,9 @@ class UpdateRallyPointIncomingAttackTroopsAction extends Action<any> {
             attackerCoordY,
             villageId,
             arrivalLocalTime: now + timeLeft * 1000,
-            updatedAt: now
+            updatedAt: now,
+            troopEvadeCompleted: false,
+            resourceEvadeCompleted: false
         }
 
         const unitNames = element.find('.units .uniticon img')

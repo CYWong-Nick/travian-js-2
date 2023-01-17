@@ -1,5 +1,5 @@
 import { Action, ActionContext } from '../../types/ActionTypes';
-import { isInBuilding, sleep } from '../../utils/BotUtils';
+import { isInBuildingAtPosition, sleep } from '../../utils/BotUtils';
 import { db } from '../../database/db';
 import { cleanParseInt } from '../../utils/NumberUtils';
 
@@ -11,7 +11,7 @@ class RaidAction extends Action<RaidActionParam> {
     name = 'RaidAction'
     
     shouldRun = async (ctx: ActionContext) => {
-        return isInBuilding('16', 39, { tt: '99' })
+        return isInBuildingAtPosition('16', 39, { tt: '99' })
     }
 
     run = async (ctx: ActionContext, param: RaidActionParam) => {

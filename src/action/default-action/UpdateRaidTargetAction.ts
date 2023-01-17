@@ -4,13 +4,13 @@ import moment from 'moment';
 import { cleanParseInt } from '../../utils/NumberUtils';
 import { db } from '../../database/db';
 import keyBy from 'lodash.keyby';
-import { isInBuilding, sleep } from '../../utils/BotUtils';
+import { isInBuildingAtPosition, sleep } from '../../utils/BotUtils';
 
 class UpdateRaidTargetAction extends Action<any> {
     name = 'UpdateRaidTargetAction'
     
     shouldRun = async (ctx: ActionContext, params: any) => {
-        return isInBuilding('16', 39, { tt: '99' })
+        return isInBuildingAtPosition('16', 39, { tt: '99' })
     }
 
     run = async (ctx: ActionContext) => {

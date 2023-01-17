@@ -18,6 +18,8 @@ export interface Village {
     ironCapacity: number
     cropCapacity: number
     plusAttackStartTime: number
+    enableResourceEvade: boolean
+    resourceEvadeVillageId: string
 }
 
 export enum VillageFieldType {

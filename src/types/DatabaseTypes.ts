@@ -95,6 +95,8 @@ export interface IncomingAttack {
     villageId: string
     arrivalLocalTime: number
     updatedAt: number
+    resourceEvadeCompleted: boolean
+    troopEvadeCompleted: boolean
 }
 
 export interface IncomingAttackUnit {

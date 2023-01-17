@@ -93,13 +93,14 @@ export const isSufficientResource = (village: Village, levelAttirbutes: Building
         && village.crop >= levelAttirbutes.crop
 }
 
-export const isInBuilding = (buildingId: string, position: number, additionalMatch?: Record<string, string>): boolean => {
+const checkInBuilding = (buildingId: string, position: number | null, additionalMatch?: Record<string, string>): boolean => {
     const url = new URL(window.location.href)
 
     const isBuildingIdMatch = buildingId === url.searchParams.get('gid')
 
     const positionStr = url.searchParams.get('id')
     const isPositionMatch = buildingId === '16'
+        || !position
         || (!!positionStr && parseInt(positionStr) === position)
 
     const isQueryParamMatch = !additionalMatch
@@ -112,4 +113,12 @@ export const isInBuilding = (buildingId: string, position: number, additionalMat
         && isBuildingIdMatch
         && isPositionMatch
         && isQueryParamMatch
+}
+
+export const isInBuilding = (buildingId: string, additionalMatch?: Record<string, string>): boolean => {
+    return checkInBuilding(buildingId, null, additionalMatch)
+}
+
+export const isInBuildingAtPosition = (buildingId: string, position: number | null, additionalMatch?: Record<string, string>): boolean => {
+    return checkInBuilding(buildingId, position, additionalMatch)
 }

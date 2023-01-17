@@ -1,7 +1,7 @@
 import { db } from "../../database/db"
 import { toField } from "../../utils/NavigationUtils"
 import { Action, ActionContext } from "../../types/ActionTypes"
-import { isInBuilding } from "../../utils/BotUtils"
+import { isInBuildingAtPosition } from "../../utils/BotUtils"
 
 interface UpgradeActionParam {
     buildItemId: string
@@ -15,7 +15,7 @@ class UpgradeAction extends Action<UpgradeActionParam> {
         if (!item)
             return false
 
-        return isInBuilding(item.buildingId, item.position)
+        return isInBuildingAtPosition(item.buildingId, item.position)
     }
 
     run = async (ctx: ActionContext, param: UpgradeActionParam) => {

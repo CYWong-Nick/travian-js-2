@@ -1,12 +1,12 @@
 import { Action, ActionContext } from "../../types/ActionTypes"
-import { isInBuilding } from "../../utils/BotUtils"
+import { isInBuildingAtPosition } from "../../utils/BotUtils"
 import { toTown } from "../../utils/NavigationUtils"
 
 class NavigateToRallyPointFarmListAction extends Action<any> {
   name = 'NavigateToRallyPointFarmListAction'
 
   shouldRun = async (ctx: ActionContext, param: any) => {
-    return isInBuilding('16', 39)
+    return isInBuildingAtPosition('16', 39)
   }
 
   run = async (ctx: ActionContext, param: any) => {
