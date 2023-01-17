@@ -7,7 +7,7 @@ import notification from '../../notification/notification';
 
 class UpdateRallyPointIncomingAttackTroopsAction extends Action<any> {
     name = 'UpdateRallyPointIncomingAttackTroopsAction'
-    
+
     shouldRun = async (ctx: ActionContext) => {
         return isInBuildingAtPosition('16', 39, { tt: '1' })
             && $('.filterCategory1').parent().hasClass('iconFilterActive')
@@ -98,7 +98,7 @@ class UpdateRallyPointIncomingAttackTroopsAction extends Action<any> {
         await db.incomingAttackUnit.bulkPut(Object.values(attackUnits).flatMap(e => e))
 
         for (const attack of attacks.filter(e => !existing.find(a => a.id === e.id))) {
-            notification.notificationRallyPointAttack(ctx.currentVillage.name, attack, attackUnits[attack.id])
+            await notification.notificationRallyPointAttack(ctx.currentVillage.name, attack, attackUnits[attack.id])
         }
 
         return true

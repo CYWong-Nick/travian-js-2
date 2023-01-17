@@ -9,7 +9,7 @@ import SettingViewContainer from './view/settings/SettingViewContainer';
 import useSessionStorageState from 'use-session-storage-state'
 
 const GlobalStyle = createGlobalStyle`
-  .buildingSlot.a40.g31 .level {
+  .buildingSlot.a40 .level {
     pointer-events: auto !important
   }
 `
