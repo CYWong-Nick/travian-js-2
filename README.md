@@ -20,6 +20,7 @@
 - Building plan add townhall & residence
 - Demolish queue
 - Retry notification if fail
+- Raid list import / export
 
 2. Bug
-- Stop raid when partial loss
+- Prevent bot from deactivating farm list entry when ticking checkbox
