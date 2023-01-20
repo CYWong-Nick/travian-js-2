@@ -3,6 +3,7 @@
 - Randomized Action Interval (Configurable)
 - Enable disable feature :)
 - Auto evade troop
+- Auto NPC trade
 - Plus attack alert scan number of attacks
 - Scout report alert
 - Resources full alert
