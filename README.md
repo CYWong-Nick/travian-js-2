@@ -11,13 +11,13 @@
 - Auto train
 - Auto party
 - Auto send resrouces
-- Trade route scan
-- Raid distance optimization
-- Build queue reorder check level
+- Gold Club Trade route scan (Store and calculate actual hourly production of each village)
+- Farm list distance optimization (Calculate distance between each target and farm target)
+- Build queue reorder check level (Prevent level 10 build before level 9 when reordering)
 - Change build queue re-order to multi-select + drag & drop
-- Allow move build queue item to top
+- Allow move build queue item to top/bottom (Need to check level ordering)
 - Map animal / field layout helper
 - Building plan add townhall & residence
-- Demolish queue
+- Auto Demolish queue
 - Retry notification if fail
 - Raid list import / export
