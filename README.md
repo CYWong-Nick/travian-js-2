@@ -1,6 +1,7 @@
 1. TTD
 - Randomized Click delay (Configurable)
 - Randomized Action Interval (Configurable)
+- Enable disable feature :)
 - Auto evade troop
 - Plus attack alert scan number of attacks
 - Scout report alert
