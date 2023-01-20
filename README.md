@@ -21,6 +21,3 @@
 - Demolish queue
 - Retry notification if fail
 - Raid list import / export
-
-2. Bug
-- Prevent bot from deactivating farm list entry when ticking checkbox

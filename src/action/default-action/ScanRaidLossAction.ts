@@ -8,6 +8,7 @@ import NavigateToTownAction from '../navigation/NavigateToTownAction'
 import NavigateToBuildingAction from '../navigation/NavigateToBuildingAction'
 import NavigateToRallyPointFarmListAction from '../navigation/NavigateToRallyPointFarmListAction'
 import SwitchVillageAction from '../navigation/SwitchVillageAction'
+import DisableRaidLossAction from '../raid/DisableRaidLossAction'
 
 class ScanRaidLossAction extends Action<any> {
     name = 'ScanRaidLossAction'
@@ -34,6 +35,7 @@ class ScanRaidLossAction extends Action<any> {
                 .add(NavigateToTownAction, {})
                 .add(NavigateToBuildingAction, { buildingId: '16', position: 39 })
                 .add(NavigateToRallyPointFarmListAction, {})
+                .add(DisableRaidLossAction, {})
                 .add(NavigateToTownAction, {})
                 .done()
 

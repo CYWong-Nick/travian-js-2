@@ -25,5 +25,35 @@ export enum Tribe {
   Huns = 'Huns',
   Egyptians = 'Egyptians',
   Spartans = 'Spartans',
+  Natar = 'Natar',
+  Nature = 'Nature',
   Unknown = 'Unknown'
+}
+
+export interface Troop {
+  id: string
+  tribe: Tribe
+  troopId: string
+  name: string
+  type: TroopType
+  attack: number
+  infantryDefense: number
+  calvaryDefense: number
+  speed: number
+  carry: number
+  lumber: number
+  clay: number
+  iron: number
+  crop: number
+  consumption: number
+  trainingTime: number
+}
+
+export enum TroopType {
+  Infantry = 'Infantry',
+  Calvary = 'Calvary',
+  Siege = 'Siege',
+  Settler = 'Settler',
+  Hero = 'Hero',
+  Others = 'Others'
 }

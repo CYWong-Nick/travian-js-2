@@ -6,8 +6,8 @@ import { db } from '../../database/db';
 import keyBy from 'lodash.keyby';
 import { isInBuildingAtPosition, sleep } from '../../utils/BotUtils';
 
-class UpdateRaidTargetAction extends Action<any> {
-    name = 'UpdateRaidTargetAction'
+class DisableRaidLossAction extends Action<any> {
+    name = 'DisableRaidLossAction'
 
     shouldRun = async (ctx: ActionContext, params: any) => {
         return isInBuildingAtPosition('16', 39, { tt: '99' })
@@ -112,12 +112,12 @@ class UpdateRaidTargetAction extends Action<any> {
                         lastRaidBounty,
                         lastRaidCapacity,
                         lastRaidResult,
-                    })
+                    })                 
                 }).toArray()
+                console.log($(listEle).find('.stateToggleButton').filter((_, e) => e.textContent === "Deactivate selected"))
+                $(listEle).find('.stateToggleButton').filter((_, e) => e.textContent === "Deactivate selected").trigger('click')
             })
         })
-
-        $('.stateToggleButton').filter((_, e) => e.textContent === "Deactivate selected").trigger('click')
 
         const raidListIds = raidListUpdate.map(e => e.id)
         await db.raidList.bulkDelete(Object.keys(raidListMap).filter(e => !raidListIds.includes(e)))
@@ -131,4 +131,4 @@ class UpdateRaidTargetAction extends Action<any> {
     }
 }
 
-export default new UpdateRaidTargetAction()
+export default new DisableRaidLossAction()

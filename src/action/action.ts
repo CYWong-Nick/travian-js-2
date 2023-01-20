@@ -20,7 +20,7 @@ import NavigateToPlusResourcesAction from "./navigation/NavigateToPlusResourcesA
 import ScanPlusStatisticsAction from "./default-action/ScanPlusStatisticsAction"
 import UpdatePlusOverviewAction from "./default-action/UpdatePlusOverviewAction"
 import UpdatePlusResourcesAction from "./default-action/UpdatePlusResourcesAction"
-import UpdateRaidTargetAction from "./default-action/UpdateRaidTargetAction"
+import DisableRaidLossAction from "./raid/DisableRaidLossAction"
 import RaidAction from "./raid/RaidAction"
 import ScanRaidLossAction from "./default-action/ScanRaidLossAction"
 import ScanRaidScheduleAction from "./default-action/ScanRaidScheduleAction"
@@ -56,7 +56,6 @@ export const defaultActions: string[] = [
     UpdatePlusOverviewAction,
     UpdatePlusResourcesAction,
     UpdateUserProfileAction,
-    UpdateRaidTargetAction,
     UpdateRallyPointIncomingAttackTroopsAction
 ].map(action => action.name)
 
@@ -83,7 +82,7 @@ export const actionRegistry: Record<string, Action<any>> = keyBy([
     UpdatePlusOverviewAction,
     UpdatePlusResourcesAction,
     UpdateUserProfileAction,
-    UpdateRaidTargetAction,
+    DisableRaidLossAction,
     UpdateRallyPointIncomingAttackTroopsAction,
     ScanRaidScheduleAction,
     ScanRaidLossAction,
