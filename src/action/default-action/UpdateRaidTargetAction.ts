@@ -94,7 +94,7 @@ class UpdateRaidTargetAction extends Action<any> {
 
                     const current = raidTargetMap[id]
                     if ((!current || current.lastRaidTime < lastRaidMoment.valueOf())
-                        && lastRaidResult !== RaidResult.Safe
+                        && ([RaidResult.Loss, RaidResult.TotalLoss].includes(lastRaidResult))
                     ) {
                         if (e.classList.contains('slotActive')) {
                             $(e).find('input')[0].click()
