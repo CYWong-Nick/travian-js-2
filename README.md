@@ -23,3 +23,6 @@
 - Auto Demolish queue
 - Retry notification if fail
 - Raid list import / export
+
+2. Bug
+- Add Spartan Wall Missing Data
