@@ -26,3 +26,4 @@
 
 2. Bug
 - Add Spartan Wall Missing Data
+- Auto train building dropdown hide non-existence building

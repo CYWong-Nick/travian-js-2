@@ -1,3 +1,5 @@
+import { BuildingEnum } from "../static-data/building"
+
 export interface VillageBuilding {
     id: string
     villageId: string
@@ -112,3 +114,13 @@ export interface KeyValueConfig {
     value: string | number
 }
 
+export interface AutoTrainSchedule {
+    id: string
+    villageId: string
+    buildingId: BuildingEnum
+    troopId: string
+    count: number
+    minInterval: number
+    maxInterval: number
+    nextTrainTime: number
+}

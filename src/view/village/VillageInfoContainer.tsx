@@ -10,16 +10,13 @@ import { ActionQueueManager } from "../../action/action";
 import NavigateToTownAction from "../../action/navigation/NavigateToTownAction";
 import AutoBuildAction from "../../action/build/AutoBuildAction";
 import { toField } from "../../utils/NavigationUtils";
+import VillageAutoTrainContainer from "./VillageAutoTrainContainer";
+import RowContainer from "../common/RowContainer";
+import ColumnContainer from "../common/ColumnContainer";
 
 interface VillageInfoContainerProps {
     village: Village
 }
-
-const VillageInfoViewContainer = styled.div({
-    display: 'flex',
-    flexDirection: 'row',
-    columnGap: 5
-})
 
 const VillageInfoContainer: FC<VillageInfoContainerProps> = ({
     village
@@ -115,148 +112,156 @@ const VillageInfoContainer: FC<VillageInfoContainerProps> = ({
         })
     }
 
-    return <VillageInfoViewContainer>
-        <div>
-            <h3>Basic Info</h3>
-            <table>
-                <tbody>
-                    <tr>
-                        <th>Name</th>
-                        <td>{village.name}</td>
-                    </tr>
-                    <tr>
-                        <th>Coords</th>
-                        <td>{village.coordX}, {village.coordY}</td>
-                    </tr>
-                    <tr>
-                        <th>Tribe</th>
-                        <td>{village.tribe}</td>
-                    </tr>
-                    <tr>
-                        <th>Field Type</th>
-                        <td>{village.layout}</td>
-                    </tr>
-                    <tr>
-                        <th>Capital</th>
-                        <td>{village.isCapital ? 'Yes' : 'No'}</td>
-                    </tr>
-                    <tr>
-                        <th>Lumber</th>
-                        <td>{village.lumber} ({village.lumberCapacity})</td>
-                    </tr>
-                    <tr>
-                        <th>Clay</th>
-                        <td>{village.clay} ({village.clayCapacity})</td>
-                    </tr>
-                    <tr>
-                        <th>Iron</th>
-                        <td>{village.iron} ({village.ironCapacity})</td>
-                    </tr>
-                    <tr>
-                        <th>Crop</th>
-                        <td>{village.crop} ({village.cropCapacity})</td>
-                    </tr>
-                    <tr>
-                        <th>Constructions</th>
-                        <td>
-                            {constructions?.map(e =>
-                                <div key={e.id}>
-                                    {buildings[e.buildingId].name} Level {e.targetLevel} {moment(e.targetCompletionTime).format()}
-                                </div>
-                            )}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Res. Evasion</th>
-                        <td>
-                            <input type="checkbox" checked={enableResourceEvade ?? !!village.enableResourceEvade} onChange={() => setEnableResourceEvade(!(enableResourceEvade ?? village.enableResourceEvade))} />
-                            <select value={resourceEvadeTargetVillageId ?? village.resourceEvadeTargetVillageId} onChange={e => setResourceEvadeTargetVillageId(e.target.value)} >
-                                {villages?.map(v =>
-                                    <option key={v.id} value={v.id} >{v.name}</option>
-                                )}
-                            </select>
-                            <button onClick={handleSaveResourceEvasion}>Save</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+    return <ColumnContainer>
+        <RowContainer>
             <div>
-                <button onClick={() => handleAutoBuild()}>Auto Build</button>
-            </div>
-        </div>
-
-        <div>
-            <h3>Fields</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Level</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {fields?.map(field =>
-                        <tr key={field.id}>
-                            <td>{buildings[field.buildingId].name}</td>
-                            <td>{field.position}</td>
-                            <td>{field.level}</td>
+                <h3>Basic Info</h3>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Name</th>
+                            <td>{village.name}</td>
                         </tr>
-                    )}
-                </tbody>
-            </table>
-        </div>
-
-        <div>
-            <h3>Town</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Level</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {townBuildings?.map(building =>
-                        <tr key={building.id}>
-                            <td>{buildings[building.buildingId].name}</td>
-                            <td>{building.position}</td>
-                            <td>{building.level}</td>
+                        <tr>
+                            <th>Coords</th>
+                            <td>{village.coordX}, {village.coordY}</td>
                         </tr>
-                    )}
-                </tbody>
-            </table>
-        </div>
-
-        <div>
-            <h3>Build Queue <button onClick={() => clearBuildQueue()}>x</button> </h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Level</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {buildQueue?.map(e =>
-                        <tr key={e.id}>
-                            <td>{buildings[e.buildingId].name}</td>
-                            <td>{e.position}</td>
-                            <td>{e.targetLevel}</td>
+                        <tr>
+                            <th>Tribe</th>
+                            <td>{village.tribe}</td>
+                        </tr>
+                        <tr>
+                            <th>Field Type</th>
+                            <td>{village.layout}</td>
+                        </tr>
+                        <tr>
+                            <th>Capital</th>
+                            <td>{village.isCapital ? 'Yes' : 'No'}</td>
+                        </tr>
+                        <tr>
+                            <th>Lumber</th>
+                            <td>{village.lumber} ({village.lumberCapacity})</td>
+                        </tr>
+                        <tr>
+                            <th>Clay</th>
+                            <td>{village.clay} ({village.clayCapacity})</td>
+                        </tr>
+                        <tr>
+                            <th>Iron</th>
+                            <td>{village.iron} ({village.ironCapacity})</td>
+                        </tr>
+                        <tr>
+                            <th>Crop</th>
+                            <td>{village.crop} ({village.cropCapacity})</td>
+                        </tr>
+                        <tr>
+                            <th>Constructions</th>
                             <td>
-                                <button onClick={() => handleRemoveBuildQueueItem(e.id)}>x</button>
-                                <button onClick={() => handleBuildQueueMoveUp(e.id)}>↑</button>
-                                <button onClick={() => handleBuildQueueMoveDown(e.id)}>↓</button>
+                                {constructions?.map(e =>
+                                    <div key={e.id}>
+                                        {buildings[e.buildingId].name} Level {e.targetLevel} {moment(e.targetCompletionTime).format()}
+                                    </div>
+                                )}
                             </td>
                         </tr>
-                    )}
-                </tbody>
-            </table>
-        </div>
-    </VillageInfoViewContainer>
+                        <tr>
+                            <th>Res. Evasion</th>
+                            <td>
+                                <input type="checkbox" checked={enableResourceEvade ?? !!village.enableResourceEvade} onChange={() => setEnableResourceEvade(!(enableResourceEvade ?? village.enableResourceEvade))} />
+                                <select value={resourceEvadeTargetVillageId ?? village.resourceEvadeTargetVillageId} onChange={e => setResourceEvadeTargetVillageId(e.target.value)} >
+                                    {villages?.map(v =>
+                                        <option key={v.id} value={v.id} >{v.name}</option>
+                                    )}
+                                </select>
+                                <button onClick={handleSaveResourceEvasion}>Save</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div>
+                    <button onClick={() => handleAutoBuild()}>Auto Build</button>
+                </div>
+            </div>
+
+            <div>
+                <h3>Fields</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Position</th>
+                            <th>Level</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {fields?.map(field =>
+                            <tr key={field.id}>
+                                <td>{buildings[field.buildingId].name}</td>
+                                <td>{field.position}</td>
+                                <td>{field.level}</td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+            </div>
+
+            <div>
+                <h3>Town</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Position</th>
+                            <th>Level</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {townBuildings?.map(building =>
+                            <tr key={building.id}>
+                                <td>{buildings[building.buildingId].name}</td>
+                                <td>{building.position}</td>
+                                <td>{building.level}</td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+            </div>
+
+            <div>
+                <h3>Build Queue <button onClick={() => clearBuildQueue()}>x</button> </h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Position</th>
+                            <th>Level</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {buildQueue?.map(e =>
+                            <tr key={e.id}>
+                                <td>{buildings[e.buildingId].name}</td>
+                                <td>{e.position}</td>
+                                <td>{e.targetLevel}</td>
+                                <td>
+                                    <button onClick={() => handleRemoveBuildQueueItem(e.id)}>x</button>
+                                    <button onClick={() => handleBuildQueueMoveUp(e.id)}>↑</button>
+                                    <button onClick={() => handleBuildQueueMoveDown(e.id)}>↓</button>
+                                </td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+            </div>
+        </RowContainer>
+
+        <RowContainer>
+            <VillageAutoTrainContainer
+                village={village}
+            />
+        </RowContainer>
+    </ColumnContainer>
 }
 
 export default VillageInfoContainer

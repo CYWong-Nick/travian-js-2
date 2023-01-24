@@ -25,7 +25,7 @@ export enum Tribe {
   Huns = 'Huns',
   Egyptians = 'Egyptians',
   Spartans = 'Spartans',
-  Natar = 'Natar',
+  Natars = 'Natars',
   Nature = 'Nature',
   Unknown = 'Unknown'
 }

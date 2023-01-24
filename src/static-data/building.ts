@@ -1,6 +1,17 @@
 import keyBy from 'lodash.keyby'
 import { Building, BuildingLocation, BuildingLevelAttributes, BuildingCategory } from '../types/BuildingTypes'
 
+export enum BuildingEnum {
+    RallyPoint = '16',
+    Barracks = '19',
+    Stable = '20',
+    Workshop = '21',
+    Residence = '25',
+    Palace = '26',
+    GreatBarracks = '29',
+    GreatStable = '30',
+}
+
 export const buildings: Record<string, Building> = keyBy([
     { id: "1", name: "Woodcutter", location: BuildingLocation.Field, category: BuildingCategory.Others },
     { id: "2", name: "Clay Pit", location: BuildingLocation.Field, category: BuildingCategory.Others },

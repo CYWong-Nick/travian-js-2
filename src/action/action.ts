@@ -43,6 +43,8 @@ import NavigateToAdventureAction from "./navigation/NavigateToAdventureAction"
 import NavigateToMarketSendResourceAction from "./navigation/NavigateToMarketSendResourceAction"
 import ScanResourceEvadeAction from "./default-action/ScanResourceEvadeAction"
 import SendResourceAction from "./market/SendResourceAction"
+import ScanTrainScheduleAction from "./train/ScanTrainScheduleAction"
+import TrainAction from "./train/TrainAction"
 
 export const defaultActions: string[] = [
     AutoLoginAction,
@@ -65,6 +67,7 @@ export const defaultScanners: string[] = [
     ScanRaidScheduleAction,
     ScanRaidLossAction,
     ScanBuildQueueAction,
+    ScanTrainScheduleAction,
     ScanPlusStatisticsAction,
     ScanRallyPointIncomingAttackAction,
     ScanAdventureAction
@@ -93,6 +96,7 @@ export const actionRegistry: Record<string, Action<any>> = keyBy([
     ScanRallyPointIncomingAttackAction,
     ScanAdventureAction,
     ScanResourceEvadeAction,
+    ScanTrainScheduleAction,
     SwitchVillageAction,
     NavigateToBuildingAction,
     NavigateToNewBuildingCategoryAction,
@@ -111,7 +115,8 @@ export const actionRegistry: Record<string, Action<any>> = keyBy([
     UpgradeAction,
     RaidAction,
     AdventureAction,
-    SendResourceAction
+    SendResourceAction,
+    TrainAction
 ], e => e.name)
 
 export class ActionQueueManager {
