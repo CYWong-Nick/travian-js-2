@@ -58,7 +58,6 @@ export const defaultActions: string[] = [
     UpdatePlusOverviewAction,
     UpdatePlusResourcesAction,
     UpdateUserProfileAction,
-    UpdateRallyPointIncomingAttackTroopsAction
 ].map(action => action.name)
 
 export const defaultScanners: string[] = [

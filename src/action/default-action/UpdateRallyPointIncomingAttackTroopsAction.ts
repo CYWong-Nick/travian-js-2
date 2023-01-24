@@ -4,6 +4,7 @@ import { isInBuildingAtPosition } from '../../utils/BotUtils';
 import { IncomingAttack, IncomingAttackType, IncomingAttackUnit } from '../../types/DatabaseTypes';
 import { db } from '../../database/db';
 import notification from '../../notification/notification';
+import moment from 'moment';
 
 type IncomingAttackUpdate = Omit<IncomingAttack, 'troopEvadeCompleted' | 'resourceEvadeCompleted'>
 
@@ -100,6 +101,11 @@ class UpdateRallyPointIncomingAttackTroopsAction extends Action<any> {
         for (const attack of mergedAttacks.filter(e => !existingAttacks.find(a => a.id === e.id))) {
             await notification.notificationRallyPointAttack(ctx.currentVillage.name, attack, attackUnits[attack.id])
         }
+
+        await db.villages.put({
+            ...ctx.currentVillage,
+            nextRallyPointAttackScanTime: moment().add(5, 'minutes').valueOf()
+        })
 
         return true
     }

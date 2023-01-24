@@ -31,7 +31,6 @@ class UpdateVillageListAction extends Action<any> {
         const updatedVillages: Village[] = []
 
         for (const listEntryEle of $('.villageList .listEntry')) {
-            const hasAttacks = listEntryEle.classList.contains('attack')
             const coordEle = $(listEntryEle).find('.coordinatesGrid')[0]
 
             const villageId = coordEle.getAttribute('data-did')
@@ -43,17 +42,11 @@ class UpdateVillageListAction extends Action<any> {
                 continue
 
             const village = villages[villageId]
-
-            let plusAttackStartTime
-            if (hasAttacks) {
-                if (village?.plusAttackStartTime) {
-                    plusAttackStartTime = village?.plusAttackStartTime
-                } else {
-                    await notification.notifyPlusAttack(name)
-                    plusAttackStartTime = Date.now()
-                }
-            } else {
-                plusAttackStartTime = 0
+            
+            const hasPlusAttackWarning = listEntryEle.classList.contains('attack')
+            const isNewPlusAttackWarning = hasPlusAttackWarning && !village?.hasPlusAttackWarning
+            if (isNewPlusAttackWarning) {
+                await notification.notifyPlusAttack(name)
             }
 
             updatedVillages.push({
@@ -64,7 +57,8 @@ class UpdateVillageListAction extends Action<any> {
                 coordX: parseInt(coordX),
                 coordY: parseInt(coordY),
                 isActive: listEntryEle.classList.contains('active'),
-                plusAttackStartTime
+                hasPlusAttackWarning,
+                nextRallyPointAttackScanTime: isNewPlusAttackWarning ? Date.now() : (village?.nextRallyPointAttackScanTime || 0)
             })
         }
 

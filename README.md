@@ -10,7 +10,6 @@
 - Build queue empty alert
 - Custom Farm
 - Non plus support
-- Auto train
 - Auto party
 - Auto send resrouces
 - Gold Club Trade route scan (Store and calculate actual hourly production of each village)

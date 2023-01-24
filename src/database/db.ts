@@ -19,7 +19,7 @@ export class TravianJsDatabase extends Dexie {
 
     constructor() {
         super('travianjs');
-        this.version(14).stores({
+        this.version(15).stores({
             villages: '++id, name',
             villageBuildings: '++id, villageId, buildingId, position',
             actionQueue: '++id, seq',
@@ -32,6 +32,7 @@ export class TravianJsDatabase extends Dexie {
             incomingAttack: '++id, villageId',
             incomingAttackUnit: '++id, incomingAttackId',
             autoTrainSchedule: '++id, villageId',
+            features: '++id',
             keyValueConfig: '++id, key'
         });
     }

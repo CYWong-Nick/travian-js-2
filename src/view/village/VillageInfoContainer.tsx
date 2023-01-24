@@ -1,6 +1,5 @@
 import { useLiveQuery } from "dexie-react-hooks";
 import { FC, useState } from "react";
-import styled from "styled-components";
 import { db } from "../../database/db";
 import { buildings } from "../../static-data/building";
 import moment from 'moment'
@@ -175,6 +174,14 @@ const VillageInfoContainer: FC<VillageInfoContainerProps> = ({
                                 </select>
                                 <button onClick={handleSaveResourceEvasion}>Save</button>
                             </td>
+                        </tr>
+                        <tr>
+                            <th>Next Rally Point Attack Scan</th>
+                            <td>{moment(village.nextRallyPointAttackScanTime).format()}</td>
+                        </tr>
+                        <tr>
+                            <th>Has incoming attack</th>
+                            <td>{village.hasPlusAttackWarning ? 'Yes' : 'No'}</td>
                         </tr>
                     </tbody>
                 </table>

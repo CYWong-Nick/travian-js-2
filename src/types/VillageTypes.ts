@@ -17,9 +17,10 @@ export interface Village {
     clayCapacity: number
     ironCapacity: number
     cropCapacity: number
-    plusAttackStartTime: number
     enableResourceEvade: boolean
     resourceEvadeTargetVillageId: string
+    hasPlusAttackWarning: boolean
+    nextRallyPointAttackScanTime: number
 }
 
 export enum VillageFieldType {

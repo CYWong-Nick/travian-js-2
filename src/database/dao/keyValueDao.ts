@@ -6,7 +6,6 @@ export enum ConfigKey {
     NextUserProfileScanTime = 'NextUserProfileScanTime',
     NextRaidReportScanTime = 'NextRaidReportScanTime',
     NextPlusOverviewScanTime = 'NextPlusOverviewScanTime',
-    NextRallyPointIncomingAttackScanTime = 'NextRallyPointIncomingAttackScanTime',
     NextAdventureScanTime = 'NextAdventureScanTime',
     PlayerName = 'PlayerName',
     LoginName = 'LoginName',
