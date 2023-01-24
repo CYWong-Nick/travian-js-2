@@ -61,9 +61,10 @@ class UpdateRallyPointIncomingAttackTroopsAction extends Action<any> {
     run = async (ctx: ActionContext) => {
         const attacks: IncomingAttackUpdate[] = []
         const attackUnits: Record<string, IncomingAttackUnit[]> = {}
+        const villageId = ctx.currentVillage.id
 
         for (const ele of $('.troop_details.inRaid')) {
-            const result = this.process(ctx.currentVillage.id, $(ele), IncomingAttackType.Raid)
+            const result = this.process(villageId, $(ele), IncomingAttackType.Raid)
             if (result) {
                 const { entry, units } = result
                 attacks.push(entry)
@@ -72,7 +73,7 @@ class UpdateRallyPointIncomingAttackTroopsAction extends Action<any> {
         }
 
         for (const ele of $('.troop_details.inAttack')) {
-            const result = this.process(ctx.currentVillage.id, $(ele), IncomingAttackType.Attack)
+            const result = this.process(villageId, $(ele), IncomingAttackType.Attack)
             if (result) {
                 const { entry, units } = result
                 attacks.push(entry)
@@ -80,7 +81,7 @@ class UpdateRallyPointIncomingAttackTroopsAction extends Action<any> {
             }
         }
 
-        const existingAttacks = await db.incomingAttack.toArray()
+        const existingAttacks = await db.incomingAttack.where('villageId').equals(villageId).toArray()
         const mergedAttacks: IncomingAttack[] = attacks.map(a => {
             const existingAttack = existingAttacks.find(ea => ea.id === a.id)
             return {
