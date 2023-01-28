@@ -57,3 +57,8 @@ export enum TroopType {
   Hero = 'Hero',
   Others = 'Others'
 }
+
+export interface KeyValue {
+  key: string
+  value: string
+}

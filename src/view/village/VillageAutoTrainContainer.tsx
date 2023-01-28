@@ -9,8 +9,9 @@ import { AutoTrainSchedule } from "../../types/DatabaseTypes";
 import { Village } from "../../types/VillageTypes";
 import Button from "../common/Button";
 import useItemList from "../common/hooks/useItemList";
-import useNewItem from "../common/hooks/useNewItem";
+import useItem from "../common/hooks/useItem";
 import Input, { Scale } from "../common/Input";
+import Dropdown from "../common/Dropdown";
 
 interface VillageAutoTrainContainerProps {
     village: Village
@@ -21,8 +22,8 @@ const VillageAutoTrainContainer: FC<VillageAutoTrainContainerProps> = ({
 }) => {
     const autoTrainSchedules = useLiveQuery(() => db.autoTrainSchedule.where('villageId').equals(village.id).toArray(), [village.id])
     const buildingList = [BuildingEnum.Barracks, BuildingEnum.GreatBarracks, BuildingEnum.Stable, BuildingEnum.GreatStable, BuildingEnum.Workshop]
-    const { getItem, updateItem, removeItem, itemList } = useItemList(autoTrainSchedules)
-    const { newItem, updateNewItem, resetNewItem } = useNewItem<AutoTrainSchedule>({
+    const { getListItem, updateListItem, removeListItem, itemList } = useItemList(autoTrainSchedules)
+    const { item, updateItem, resetItem } = useItem<AutoTrainSchedule>({
         id: '',
         villageId: village.id,
         buildingId: BuildingEnum.Barracks,
@@ -34,24 +35,24 @@ const VillageAutoTrainContainer: FC<VillageAutoTrainContainerProps> = ({
     })
 
     const handleUpdateItem = async (id: string) => {
-        const item = getItem(id)
+        const item = getListItem(id)
         if (item) {
             await db.autoTrainSchedule.put(item)
-            removeItem(id)
+            removeListItem(id)
         }
     }
 
     const handleRemoveItem = async (id: string) => {
         await db.autoTrainSchedule.delete(id)
-        removeItem(id)
+        removeListItem(id)
     }
 
     const handleAddNewItem = async () => {
         await db.autoTrainSchedule.add({
-            ...newItem,
+            ...item,
             id: v4()
         })
-        resetNewItem()
+        resetItem()
     }
 
     return <div>
@@ -72,26 +73,26 @@ const VillageAutoTrainContainer: FC<VillageAutoTrainContainerProps> = ({
                     itemList.map(item => {
                         return <tr key={item.id}>
                             <td>
-                                <select value={item.buildingId} onChange={e => updateItem(item.id, 'buildingId', e.target.value)}>
-                                    {buildingList.map(e =>
-                                        <option key={e} value={e}>{buildings[e].name}</option>
-                                    )}
-                                </select>
+                                <Dropdown
+                                    value={item.buildingId}
+                                    options={buildingList.map(key => ({ key, value: buildings[key].name }))}
+                                    onChange={value => updateListItem(item.id, 'buildingId', value)}
+                                />
                             </td>
                             <td>
-                                <select value={item.troopId} onChange={e => updateItem(item.id, 'troopId', e.target.value)}>
-                                    {getBuildingTrainableTroops(village.tribe, item.buildingId).map(o =>
-                                        <option key={`${o.troopId}`} value={o.troopId}>{o.name}</option>
-                                    )}
-                                </select>
+                                <Dropdown
+                                    value={item.buildingId}
+                                    options={getBuildingTrainableTroops(village.tribe, item.buildingId).map(e => ({ key: e.troopId, value: e.name }))}
+                                    onChange={value => updateListItem(item.id, 'troopId', value)}
+                                />
                             </td>
                             <td>
-                                <Input scale={Scale.XS} value={item.count} onChange={value => updateItem(item.id, 'count', parseInt(value) || 0)} />
+                                <Input scale={Scale.XS} value={item.count} onChange={value => updateListItem(item.id, 'count', parseInt(value) || 0)} />
                             </td>
                             <td>
-                                <Input scale={Scale.XS} value={item.minInterval} onChange={value => updateItem(item.id, 'minInterval', parseInt(value) || 0)} />
+                                <Input scale={Scale.XS} value={item.minInterval} onChange={value => updateListItem(item.id, 'minInterval', parseInt(value) || 0)} />
                                 <span> - </span>
-                                <Input scale={Scale.XS} value={item.maxInterval} onChange={value => updateItem(item.id, 'maxInterval', parseInt(value) || 0)} />
+                                <Input scale={Scale.XS} value={item.maxInterval} onChange={value => updateListItem(item.id, 'maxInterval', parseInt(value) || 0)} />
                             </td>
                             <td>
                                 {moment(item.nextTrainTime).format()}
@@ -105,26 +106,26 @@ const VillageAutoTrainContainer: FC<VillageAutoTrainContainerProps> = ({
                 }
                 <tr>
                     <td>
-                        <select value={newItem.buildingId} onChange={e => updateNewItem('buildingId', e.target.value)}>
-                            {buildingList.map(e =>
-                                <option key={e} value={e}>{buildings[e].name}</option>
-                            )}
-                        </select>
+                        <Dropdown
+                            value={item.buildingId}
+                            options={buildingList.map(key => ({ key, value: buildings[key].name }))}
+                            onChange={value => updateItem('buildingId', value)}
+                        />
                     </td>
                     <td>
-                        <select value={newItem.troopId} onChange={e => updateNewItem('troopId', e.target.value)}>
-                            {getBuildingTrainableTroops(village.tribe, newItem.buildingId).map(o =>
-                                <option key={`${o.troopId}`} value={o.troopId}>{o.name}</option>
-                            )}
-                        </select>
+                        <Dropdown
+                            value={item.buildingId}
+                            options={getBuildingTrainableTroops(village.tribe, item.buildingId).map(e => ({ key: e.troopId, value: e.name }))}
+                            onChange={value => updateItem('troopId', value)}
+                        />
                     </td>
                     <td>
-                        <Input scale={Scale.XS} value={newItem.count} onChange={value => updateNewItem('count', parseInt(value) || 0)} />
+                        <Input scale={Scale.XS} value={item.count} onChange={value => updateItem('count', parseInt(value) || 0)} />
                     </td>
                     <td>
-                        <Input scale={Scale.XS} value={newItem.minInterval} onChange={value => updateNewItem('minInterval', parseInt(value) || 0)} />
+                        <Input scale={Scale.XS} value={item.minInterval} onChange={value => updateItem('minInterval', parseInt(value) || 0)} />
                         <span> - </span>
-                        <Input scale={Scale.XS} value={newItem.maxInterval} onChange={value => updateNewItem('maxInterval', parseInt(value) || 0)} />
+                        <Input scale={Scale.XS} value={item.maxInterval} onChange={value => updateItem('maxInterval', parseInt(value) || 0)} />
                     </td>
                     <td></td>
                     <td>

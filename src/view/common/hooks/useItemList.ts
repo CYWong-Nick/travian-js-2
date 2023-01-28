@@ -3,11 +3,11 @@ import { useState } from "react"
 const useItemList = <T extends { id: string }>(initialValues?: T[]) => {
     const [state, setState] = useState<Record<string, T>>({})
 
-    const getItem = (id: string): T | undefined => {
+    const getListItem = (id: string): T | undefined => {
         return state[id] || initialValues?.find(e => e.id === id)
     }
 
-    const updateItem = (id: string, key: keyof T, value: any) => {
+    const updateListItem = (id: string, key: keyof T, value: any) => {
         setState(s => ({
             ...s,
             [id]: {
@@ -18,7 +18,7 @@ const useItemList = <T extends { id: string }>(initialValues?: T[]) => {
         }))
     }
 
-    const removeItem = (id: string) => {
+    const removeListItem = (id: string) => {
         setState(s => {
             const newState = { ...s }
             delete newState[id]
@@ -27,12 +27,12 @@ const useItemList = <T extends { id: string }>(initialValues?: T[]) => {
     }
 
     const itemList = (initialValues || [])
-        .map(e => getItem(e.id) || e)
+        .map(e => getListItem(e.id) || e)
 
     return {
-        getItem,
-        updateItem,
-        removeItem,
+        getListItem,
+        updateListItem,
+        removeListItem,
         itemList
     }
 }

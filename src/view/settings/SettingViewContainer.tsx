@@ -1,22 +1,13 @@
 import { useLiveQuery } from "dexie-react-hooks";
 import moment from "moment";
 import { FC, useState } from "react";
-import styled from "styled-components";
 import { v4 } from "uuid";
 import keyValueDao, { ConfigKey, useKeyValueLiveQuery } from "../../database/dao/keyValueDao";
 import { db } from "../../database/db";
 import { NotificationChannelType, NotificationTarget, RaidSchedule } from "../../types/DatabaseTypes";
-
-const StyledSettingViewContainer = styled.div({
-    display: 'flex',
-    flexDirection: 'column',
-})
-
-const FlexRowContainer = styled.div({
-    display: 'flex',
-    flexDirection: 'row',
-    columnGap: 10
-})
+import ColumnContainer from "../common/ColumnContainer";
+import RowContainer from "../common/RowContainer";
+import FeatureSettingContainer from "./FeatureSettingContainer";
 
 const SettingViewContainer: FC = () => {
 
@@ -157,8 +148,8 @@ const SettingViewContainer: FC = () => {
         db.raidSchedule.delete(id)
     }
 
-    return <StyledSettingViewContainer>
-        <FlexRowContainer>
+    return <ColumnContainer>
+        <RowContainer>
             <div>
                 <h3>General</h3>
                 <table>
@@ -240,8 +231,8 @@ const SettingViewContainer: FC = () => {
                     </tbody>
                 </table>
             </div>
-        </FlexRowContainer>
-        <FlexRowContainer>
+        </RowContainer>
+        <RowContainer>
             <table>
                 <thead>
                     <tr>
@@ -356,8 +347,9 @@ const SettingViewContainer: FC = () => {
                     </tr>
                 </tbody>
             </table>
-        </FlexRowContainer>
-    </StyledSettingViewContainer>
+        </RowContainer>
+        <FeatureSettingContainer />
+    </ColumnContainer>
 }
 
 export default SettingViewContainer
