@@ -81,7 +81,7 @@ const VillageAutoTrainContainer: FC<VillageAutoTrainContainerProps> = ({
                             </td>
                             <td>
                                 <Dropdown
-                                    value={item.buildingId}
+                                    value={item.troopId}
                                     options={getBuildingTrainableTroops(village.tribe, item.buildingId).map(e => ({ key: e.troopId, value: e.name }))}
                                     onChange={value => updateListItem(item.id, 'troopId', value)}
                                 />
@@ -114,7 +114,7 @@ const VillageAutoTrainContainer: FC<VillageAutoTrainContainerProps> = ({
                     </td>
                     <td>
                         <Dropdown
-                            value={item.buildingId}
+                            value={item.troopId}
                             options={getBuildingTrainableTroops(village.tribe, item.buildingId).map(e => ({ key: e.troopId, value: e.name }))}
                             onChange={value => updateItem('troopId', value)}
                         />
