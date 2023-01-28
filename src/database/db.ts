@@ -1,5 +1,5 @@
 import Dexie, { Table } from 'dexie';
-import { VillageBuilding, ActionQueueItem, BuildQueueItem, CurrentBuildQueueItem, RaidSchedule, KeyValueConfig, RaidTarget, RaidList, NotificationTarget, IncomingAttack, IncomingAttackUnit, AutoTrainSchedule } from '../types/DatabaseTypes';
+import { VillageBuilding, ActionQueueItem, BuildQueueItem, CurrentBuildQueueItem, RaidSchedule, KeyValueConfig, RaidTarget, RaidList, NotificationTarget, IncomingAttack, IncomingAttackUnit, AutoTrainSchedule, Feature } from '../types/DatabaseTypes';
 import { Village } from '../types/VillageTypes';
 
 export class TravianJsDatabase extends Dexie {
@@ -15,6 +15,7 @@ export class TravianJsDatabase extends Dexie {
     incomingAttack!: Table<IncomingAttack>
     incomingAttackUnit!: Table<IncomingAttackUnit>
     autoTrainSchedule!: Table<AutoTrainSchedule>
+    features!: Table<Feature>
     keyValueConfig!: Table<KeyValueConfig>
 
     constructor() {

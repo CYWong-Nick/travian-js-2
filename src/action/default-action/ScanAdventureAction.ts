@@ -7,6 +7,8 @@ import NavigateToAdventureAction from '../navigation/NavigateToAdventureAction'
 import AdventureAction from '../adventure/AdventureAction'
 import moment from 'moment'
 import NavigateToTownAction from '../navigation/NavigateToTownAction'
+import { adventureFeatureDao } from '../../database/dao/featureDao'
+import { randomInteger } from '../../utils/NumberUtils'
 
 class ScanAdventureAction extends Action<any> {
     name = 'ScanAdventureAction'
@@ -17,17 +19,18 @@ class ScanAdventureAction extends Action<any> {
     }
 
     run = async () => {
+        const { getValue, setValue } = adventureFeatureDao()
+        const adventureSettings = await getValue()
+
         const heroStatus = await keyValueDao<HeroStatus>(ConfigKey.HeroStatus, 'Unknown').getValue()
         const heroHealth = await keyValueDao<number>(ConfigKey.HeroHealth, 0).getValue()
         const adventureCount = await keyValueDao<number>(ConfigKey.AdventureCount, 0).getValue()
-        const dao = keyValueDao<number>(ConfigKey.NextAdventureScanTime, 0)
-        const nextAdventureScanTime = await dao.getValue()
 
-        if (nextAdventureScanTime > Date.now()) {
-            return true
-        }
-
-        if (adventureCount === 0 || heroHealth < 40 || heroStatus !== 'Home') {
+        if (adventureSettings.nextScan > Date.now()
+            || adventureCount === 0
+            || heroHealth < adventureSettings.minHeroHealth
+            || heroStatus !== 'Home'
+        ) {
             return true
         }
 
@@ -37,7 +40,10 @@ class ScanAdventureAction extends Action<any> {
             .add(NavigateToTownAction, {})
             .done()
 
-        await dao.setValue(moment().add(9, 'minute').valueOf())
+        await setValue({
+            ...adventureSettings,
+            nextScan: moment().add(randomInteger(adventureSettings.minScanInterval, adventureSettings.maxScanInterval), 'seconds').valueOf()
+        })
 
         return true
     }

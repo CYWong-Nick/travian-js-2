@@ -124,3 +124,39 @@ export interface AutoTrainSchedule {
     maxInterval: number
     nextTrainTime: number
 }
+
+export enum FeatureName {
+    Adventure = 'Adventure',
+    AutoBuild = 'AutoBuild',
+    PlusOverviewScanner = 'PlusOverviewScanner'
+}
+
+export interface AdventureFeature {
+    id: FeatureName.Adventure
+    name: FeatureName.Adventure
+    enabled: boolean
+    maxDuration: number
+    minHeroHealth: number
+    minScanInterval: number
+    maxScanInterval: number
+    nextScan: number
+}
+
+export interface AutoBuildFeature {
+    id: FeatureName.AutoBuild
+    name: FeatureName.AutoBuild
+    enabled: boolean
+}
+
+export interface PlusOverviewScannerFeature {
+    id: FeatureName.PlusOverviewScanner
+    name: FeatureName.PlusOverviewScanner
+    enabled: boolean
+    minInterval: number
+    maxInterval: number
+}
+
+export type Feature =
+    AdventureFeature
+    | AutoBuildFeature
+    | PlusOverviewScannerFeature
