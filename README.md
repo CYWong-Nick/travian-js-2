@@ -26,3 +26,4 @@
 2. Bug
 - Add Spartan Wall Missing Data
 - Auto train building dropdown hide non-existence building
+- Stop all updates when bot disabled (Otherwise updating wrong village when multiple tabs opened)
