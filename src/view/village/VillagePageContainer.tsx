@@ -13,22 +13,24 @@ const VillagePageStyledContainer = styled.div({
 
 const VillagePageContainer: FC = () => {
     const villages = useLiveQuery(() => db.villages.toArray())
-    const activeVillage = villages?.find(v => v.isActive)
-    const [selectedVillage, setSelectedVillage] = useState<Village | undefined>()
+    const [selectedVillageId, setSelectedVillageId] = useState<string>()
 
-    const displayVillage = selectedVillage || activeVillage
+    const village = selectedVillageId ?
+        villages?.find(v => v.id === selectedVillageId)
+        : villages?.find(v => v.isActive)
 
     return <VillagePageStyledContainer>
-        {villages && displayVillage &&
+        {villages && village &&
             <VillageList
                 villages={villages}
-                selectedVillageId={displayVillage.id}
-                onChange={id => setSelectedVillage(villages.find(village => village.id === id))}
+                selectedVillageId={village.id}
+                onChange={setSelectedVillageId}
             />
         }
-        {displayVillage &&
+        {village &&
             <VillageInfoContainer
-                village={displayVillage}
+                key={village.id}
+                village={village}
             />
         }
     </VillagePageStyledContainer>

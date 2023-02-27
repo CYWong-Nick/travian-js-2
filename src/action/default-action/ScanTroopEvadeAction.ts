@@ -25,7 +25,7 @@ class ScanTroopEvadeAction extends Action<any> {
 
         const troopEvasions = incomingAttacks.filter(e =>
             !e.troopEvadeCompleted
-            && moment(e.arrivalLocalTime).diff(moment(), 'minute') <= 200
+            && moment(e.arrivalLocalTime).diff(moment(), 'minute') <= 1
             && villages.find(v => v.id === e.villageId)?.enableTroopEvade
         )
 
