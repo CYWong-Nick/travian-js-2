@@ -1,9 +1,10 @@
 import moment from "moment";
 import { FC } from "react";
-import { adventureFeatureDao, useAdventureFeature } from "../../database/dao/featureDao";
-import Button from "../common/Button";
-import useItem from "../common/hooks/useItem";
-import Input, { Scale } from "../common/Input";
+import { adventureFeatureDao, useAdventureFeature } from "../../../database/dao/feature/adventureFeatureDao";
+import Button from "../../common/Button";
+import Checkbox from "../../common/Checkbox";
+import useItem from "../../common/hooks/useItem";
+import Input, { Scale } from "../../common/Input";
 
 const AdventureFeatureSettingContainer: FC = () => {
     const { setValue } = adventureFeatureDao()
@@ -22,7 +23,7 @@ const AdventureFeatureSettingContainer: FC = () => {
                 <tr>
                     <th>Enable</th>
                     <td>
-                        <input type="checkbox" checked={feature.enabled} />
+                        <Checkbox checked={item.enabled} onChange={value => updateItem('enabled', value)} />
                     </td>
                 </tr>
                 <tr>

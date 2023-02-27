@@ -1,7 +1,9 @@
 import { FC } from "react";
 import styled from "styled-components";
-import RowContainer from "../common/RowContainer";
+import RowContainer from "../../common/RowContainer";
 import AdventureFeatureSettingContainer from "./AdventureFeatureSettingContainer";
+import AutoLoginFeatureSettingContainer from "./AutoLoginFeatureSettingContainer";
+import PlusOverviewScannerFeatureSettingContainer from "./PlusOverviewScannerFeatureSettingContainer";
 
 const Container = styled.div({
     backgroundColor: 'lightgrey',
@@ -15,6 +17,8 @@ const FeatureSettingContainer: FC = () => {
         <h3>Feature Settings</h3>
         <RowContainer>
             <AdventureFeatureSettingContainer />
+            <AutoLoginFeatureSettingContainer />
+            <PlusOverviewScannerFeatureSettingContainer />
         </RowContainer>
     </Container>
 }

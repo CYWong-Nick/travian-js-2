@@ -114,7 +114,6 @@ class DisableRaidLossAction extends Action<any> {
                         lastRaidResult,
                     })                 
                 }).toArray()
-                console.log($(listEle).find('.stateToggleButton').filter((_, e) => e.textContent === "Deactivate selected"))
                 $(listEle).find('.stateToggleButton').filter((_, e) => e.textContent === "Deactivate selected").trigger('click')
             })
         })

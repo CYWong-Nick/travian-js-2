@@ -8,13 +8,12 @@ export enum ConfigKey {
     NextPlusOverviewScanTime = 'NextPlusOverviewScanTime',
     NextAdventureScanTime = 'NextAdventureScanTime',
     PlayerName = 'PlayerName',
-    LoginName = 'LoginName',
-    LoginPassword = 'LoginPassword',
     AdventureCount = 'AdventureCount',
     HeroHealth = 'HeroHealth',
     HeroStatus = 'HeroStatus',
     HeroExp = 'HeroExp',
-    HeroLevel = 'HeroLevel'
+    HeroLevel = 'HeroLevel',
+    ClickDelay = 'ClickDelay'
 }
 
 export type HeroStatus = 'Running' | 'Home' | 'Unknown'

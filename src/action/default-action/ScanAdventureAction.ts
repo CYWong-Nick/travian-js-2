@@ -7,8 +7,8 @@ import NavigateToAdventureAction from '../navigation/NavigateToAdventureAction'
 import AdventureAction from '../adventure/AdventureAction'
 import moment from 'moment'
 import NavigateToTownAction from '../navigation/NavigateToTownAction'
-import { adventureFeatureDao } from '../../database/dao/featureDao'
 import { randomInteger } from '../../utils/NumberUtils'
+import { adventureFeatureDao } from '../../database/dao/feature/adventureFeatureDao'
 
 class ScanAdventureAction extends Action<any> {
     name = 'ScanAdventureAction'

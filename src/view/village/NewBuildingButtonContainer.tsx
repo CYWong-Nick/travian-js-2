@@ -5,7 +5,7 @@ import { v4 } from "uuid";
 import buildQueueDao from "../../database/dao/buildQueueDao";
 import { db } from "../../database/db";
 import { Village } from "../../types/VillageTypes";
-import { toField, toTown } from "../../utils/NavigationUtils";
+import { toTown } from "../../utils/NavigationUtils";
 import { cleanParseInt } from "../../utils/NumberUtils";
 
 const StyledButton = styled.button({

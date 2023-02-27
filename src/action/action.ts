@@ -45,6 +45,10 @@ import ScanResourceEvadeAction from "./default-action/ScanResourceEvadeAction"
 import SendResourceAction from "./market/SendResourceAction"
 import ScanTrainScheduleAction from "./train/ScanTrainScheduleAction"
 import TrainAction from "./train/TrainAction"
+import NavigateToRallyPointSendTroopsAction from "./navigation/NavigateToRallyPointSendTroopsAction"
+import SendTroopsAction from "./raid/SendTroopsAction"
+import ConfirmSendTroopsAction from "./raid/ConfirmSendTroopsAction"
+import ScanTroopEvadeAction from "./default-action/ScanTroopEvadeAction"
 
 export const defaultActions: string[] = [
     AutoLoginAction,
@@ -61,6 +65,7 @@ export const defaultActions: string[] = [
 ].map(action => action.name)
 
 export const defaultScanners: string[] = [
+    ScanTroopEvadeAction,
     ScanResourceEvadeAction,
     ScanUserProfileAction,
     ScanRaidScheduleAction,
@@ -96,6 +101,7 @@ export const actionRegistry: Record<string, Action<any>> = keyBy([
     ScanAdventureAction,
     ScanResourceEvadeAction,
     ScanTrainScheduleAction,
+    ScanTroopEvadeAction,
     SwitchVillageAction,
     NavigateToBuildingAction,
     NavigateToNewBuildingCategoryAction,
@@ -106,6 +112,7 @@ export const actionRegistry: Record<string, Action<any>> = keyBy([
     NavigateToRallyPointFarmListAction,
     NavigateToRallyPointOverviewAction,
     NavigateToRallyPointIncomingAttackTroopsAction,
+    NavigateToRallyPointSendTroopsAction,
     NavigateToUserProfileAction,
     NavigateToAdventureAction,
     NavigateToMarketSendResourceAction,
@@ -113,6 +120,8 @@ export const actionRegistry: Record<string, Action<any>> = keyBy([
     BuildAction,
     UpgradeAction,
     RaidAction,
+    SendTroopsAction,
+    ConfirmSendTroopsAction,
     AdventureAction,
     SendResourceAction,
     TrainAction

@@ -30,7 +30,7 @@ const scaleToWidth = (scale?: Scale) => {
     }
 }
 
-interface InputProps {
+interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'> {
     value: string | number
     onChange: (value: string) => any
 }
@@ -42,9 +42,10 @@ const StyledInput = styled.input<ScaleProps>(props => ({
 const Input: FC<InputProps & ScaleProps> = ({
     value,
     onChange,
-    scale
+    scale,
+    ...props
 }) => {
-    return <StyledInput value={value} onChange={e => onChange(e.target.value)} scale={scale} />
+    return <StyledInput value={value} onChange={e => onChange(e.target.value)} scale={scale} {...props} />
 }
 
 export default Input

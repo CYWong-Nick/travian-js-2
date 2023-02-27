@@ -1,5 +1,5 @@
 import { useLiveQuery } from "dexie-react-hooks";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { db } from "../../database/db";
 import { buildings } from "../../static-data/building";
 import moment from 'moment'
@@ -12,6 +12,11 @@ import { toField } from "../../utils/NavigationUtils";
 import VillageAutoTrainContainer from "./VillageAutoTrainContainer";
 import RowContainer from "../common/RowContainer";
 import ColumnContainer from "../common/ColumnContainer";
+import Checkbox from "../common/Checkbox";
+import useItem from "../common/hooks/useItem";
+import Dropdown from "../common/Dropdown"
+import Input, { Scale } from "../common/Input";
+import Button from "../common/Button";
 
 interface VillageInfoContainerProps {
     village: Village
@@ -27,8 +32,7 @@ const VillageInfoContainer: FC<VillageInfoContainerProps> = ({
     const fields = villageBuildings?.filter(vb => buildings[vb.buildingId]?.location === BuildingLocation.Field)
     const townBuildings = villageBuildings?.filter(vb => buildings[vb.buildingId]?.location === BuildingLocation.Town)
 
-    const [enableResourceEvade, setEnableResourceEvade] = useState<boolean | null>(null)
-    const [resourceEvadeTargetVillageId, setResourceEvadeTargetVillageId] = useState<string | null>(null)
+    const { item, updateItem, resetItem } = useItem(village)
 
     const handleRemoveBuildQueueItem = async (id: string) => {
         const item = await db.buildQueue.get(id)
@@ -103,12 +107,9 @@ const VillageInfoContainer: FC<VillageInfoContainerProps> = ({
         toField()
     }
 
-    const handleSaveResourceEvasion = async () => {
-        await db.villages.put({
-            ...village,
-            enableResourceEvade: enableResourceEvade ?? village.enableResourceEvade,
-            resourceEvadeTargetVillageId: resourceEvadeTargetVillageId ?? village.resourceEvadeTargetVillageId
-        })
+    const handleSave = async () => {
+        await db.villages.put(item)
+        resetItem()
     }
 
     return <ColumnContainer>
@@ -164,18 +165,6 @@ const VillageInfoContainer: FC<VillageInfoContainerProps> = ({
                             </td>
                         </tr>
                         <tr>
-                            <th>Res. Evasion</th>
-                            <td>
-                                <input type="checkbox" checked={enableResourceEvade ?? !!village.enableResourceEvade} onChange={() => setEnableResourceEvade(!(enableResourceEvade ?? village.enableResourceEvade))} />
-                                <select value={resourceEvadeTargetVillageId ?? village.resourceEvadeTargetVillageId} onChange={e => setResourceEvadeTargetVillageId(e.target.value)} >
-                                    {villages?.map(v =>
-                                        <option key={v.id} value={v.id} >{v.name}</option>
-                                    )}
-                                </select>
-                                <button onClick={handleSaveResourceEvasion}>Save</button>
-                            </td>
-                        </tr>
-                        <tr>
                             <th>Next Rally Point Attack Scan</th>
                             <td>{moment(village.nextRallyPointAttackScanTime).format()}</td>
                         </tr>
@@ -183,11 +172,56 @@ const VillageInfoContainer: FC<VillageInfoContainerProps> = ({
                             <th>Has incoming attack</th>
                             <td>{village.hasPlusAttackWarning ? 'Yes' : 'No'}</td>
                         </tr>
+                        <tr>
+                            <th>Resources Evasion</th>
+                            <td>
+                                <RowContainer>
+                                    <span>Enable</span>
+                                    <Checkbox checked={item.enableResourceEvade} onChange={() => updateItem('enableResourceEvade', !item.enableResourceEvade)} />
+                                </RowContainer>
+                                <RowContainer>
+                                    <span>Target</span>
+                                    <Dropdown
+                                        value={item.resourceEvadeTargetVillageId}
+                                        options={
+                                            (villages || []).map(v => ({
+                                                key: v.id,
+                                                value: v.name
+                                            }))
+                                        }
+                                        onChange={value => updateItem('resourceEvadeTargetVillageId', value)}
+                                    />
+                                </RowContainer>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Troop Evasion</th>
+                            <td>
+                                <RowContainer>
+                                    <span>Enable</span>
+                                    <Checkbox checked={item.enableTroopEvade} onChange={() => updateItem('enableTroopEvade', !item.enableTroopEvade)} />
+                                </RowContainer>
+                                <RowContainer>
+                                    <span>Target:</span>
+                                    <span>(</span>
+                                    <Input scale={Scale.XS} value={item.troopEvadeTargetCoordX} onChange={value => updateItem('troopEvadeTargetCoordX', value)} />
+                                    <span>, </span>
+                                    <Input scale={Scale.XS} value={item.troopEvadeTargetCoordY} onChange={value => updateItem('troopEvadeTargetCoordY', value)} />
+                                    <span>)</span>
+                                </RowContainer>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Actions</th>
+                            <td>
+                                <RowContainer>
+                                    <Button onClick={handleSave}>Save</Button>
+                                    <Button onClick={handleAutoBuild}>Auto Build</Button>
+                                </RowContainer>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
-                <div>
-                    <button onClick={() => handleAutoBuild()}>Auto Build</button>
-                </div>
             </div>
 
             <div>

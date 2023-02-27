@@ -1,6 +1,6 @@
 import { CurrentPageEnum } from '../../types/CommonTypes'
 import { Action, ActionContext } from '../../types/ActionTypes'
-import keyValueDao, { ConfigKey } from '../../database/dao/keyValueDao'
+import { autoLoginFeatureDao } from '../../database/dao/feature/autoLoginFeatureDao'
 
 
 class AutoLoginAction extends Action<any> {
@@ -11,8 +11,8 @@ class AutoLoginAction extends Action<any> {
     }
 
     run = async () => {
-        const username = await keyValueDao(ConfigKey.LoginName, '').getValue()
-        const password = await keyValueDao(ConfigKey.LoginPassword, '').getValue()
+        const { getValue } = autoLoginFeatureDao()
+        const { username, password } = await getValue()
 
         if (!username || !password) {
             return false

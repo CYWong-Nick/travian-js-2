@@ -1,4 +1,4 @@
-import { adventureFeatureDao } from "../../database/dao/featureDao"
+import { adventureFeatureDao } from "../../database/dao/feature/adventureFeatureDao"
 import { Action, ActionContext } from "../../types/ActionTypes"
 import { CurrentPageEnum } from "../../types/CommonTypes"
 import { cleanParseInt } from "../../utils/NumberUtils"

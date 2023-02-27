@@ -19,6 +19,9 @@ export interface Village {
     cropCapacity: number
     enableResourceEvade: boolean
     resourceEvadeTargetVillageId: string
+    enableTroopEvade: boolean
+    troopEvadeTargetCoordX: number
+    troopEvadeTargetCoordY: number
     hasPlusAttackWarning: boolean
     nextRallyPointAttackScanTime: number
 }

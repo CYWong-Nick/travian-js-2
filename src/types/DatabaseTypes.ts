@@ -105,7 +105,7 @@ export interface IncomingAttackUnit {
     id: string
     incomingAttackId: string
     unitName: string
-    unitCount: string // Possibly ?
+    unitCount: string // Possibly '?'
 }
 
 export interface KeyValueConfig {
@@ -128,7 +128,8 @@ export interface AutoTrainSchedule {
 export enum FeatureName {
     Adventure = 'Adventure',
     AutoBuild = 'AutoBuild',
-    PlusOverviewScanner = 'PlusOverviewScanner'
+    PlusOverviewScanner = 'PlusOverviewScanner',
+    AutoLogin = 'AutoLogin',
 }
 
 export interface AdventureFeature {
@@ -156,7 +157,16 @@ export interface PlusOverviewScannerFeature {
     maxInterval: number
 }
 
+export interface AutoLoginFeature {
+    id: FeatureName.AutoLogin
+    name: FeatureName.AutoLogin
+    enabled: boolean
+    username: string
+    password: string
+}
+
 export type Feature =
     AdventureFeature
     | AutoBuildFeature
     | PlusOverviewScannerFeature
+    | AutoLoginFeature

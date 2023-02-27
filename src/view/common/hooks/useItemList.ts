@@ -1,6 +1,13 @@
 import { useState } from "react"
 
-const useItemList = <T extends { id: string }>(initialValues?: T[]) => {
+export interface UseItemListResult<T> {
+    getListItem: (id: string) => T | undefined
+    updateListItem: (id: string, key: keyof T, value: any) => void
+    removeListItem: (id: string) => void
+    itemList: T[]
+}
+
+const useItemList = <T extends { id: string }>(initialValues?: T[]): UseItemListResult<T> => {
     const [state, setState] = useState<Record<string, T>>({})
 
     const getListItem = (id: string): T | undefined => {
