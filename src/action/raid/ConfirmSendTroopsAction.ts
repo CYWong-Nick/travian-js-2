@@ -9,7 +9,7 @@ class ConfirmSendTroopsAction extends Action<any> {
     }
 
     run = async (ctx: ActionContext) => {
-        $('.textButtonV1.greenlrallyPointConfirm')[0].click()
+        $('.textButtonV1.green.rallyPointConfirm')[0].click()
         return false
     }
 }
