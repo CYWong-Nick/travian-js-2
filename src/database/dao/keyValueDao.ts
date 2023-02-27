@@ -26,7 +26,7 @@ const keyValueDao = <T extends string | number>(key: ConfigKey, defaultValue: T)
 
     const setValue = async (value: T) => {
         const record = await db.keyValueConfig.where('key').equals(key).first()
-        db.keyValueConfig.put({
+        await db.keyValueConfig.put({
             id: record?.id || v4(),
             key,
             value
