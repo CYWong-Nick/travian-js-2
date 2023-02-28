@@ -39,7 +39,14 @@ class ScanTroopEvadeAction extends Action<any> {
             mgr.add(NavigateToTownAction, {})
                 .add(NavigateToBuildingAction, { buildingId: '16', position: 39 })
                 .add(NavigateToRallyPointSendTroopsAction, {})
-                .add(SendTroopsAction, { coordX: village.troopEvadeTargetCoordX, coordY: village.troopEvadeTargetCoordY, eventType: SendTroopEventType.RAID, isAutoEvade: true, troops: [] })
+                .add(SendTroopsAction, {
+                    coordX: village.troopEvadeTargetCoordX,
+                    coordY: village.troopEvadeTargetCoordY,
+                    eventType: SendTroopEventType.RAID,
+                    isAutoEvade: true,
+                    attackId: e.id,
+                    troops: []
+                })
                 .add(ConfirmSendTroopsAction, {})
                 .add(NavigateToTownAction, {})
         }
