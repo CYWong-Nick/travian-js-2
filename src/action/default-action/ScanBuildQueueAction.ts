@@ -46,8 +46,7 @@ class ScanBuildQueueAction extends Action<any> {
                         manager.add(NavigateToNewBuildingCategoryAction, { category: building.category })
                     }
 
-                    manager
-                        .add(isNewBuilding ? BuildAction : UpgradeAction, { buildItemId: availableBuildItem.id })
+                    manager.add(isNewBuilding ? BuildAction : UpgradeAction, { buildItemId: availableBuildItem.id })
                 }
             }
         }

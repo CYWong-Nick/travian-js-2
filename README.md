@@ -2,9 +2,7 @@
 - Randomized Click delay (Configurable)
 - Randomized Action Interval (Configurable)
 - Enable disable feature :)
-- Auto evade troop
 - Auto NPC trade
-- Plus attack alert scan number of attacks
 - Scout report alert
 - Resources full alert
 - Build queue empty alert
@@ -14,9 +12,8 @@
 - Auto send resrouces
 - Gold Club Trade route scan (Store and calculate actual hourly production of each village)
 - Farm list distance optimization (Calculate distance between each target and farm target)
-- Build queue reorder check level (Prevent level 10 build before level 9 when reordering)
-- Change build queue re-order to multi-select + drag & drop
-- Allow move build queue item to top/bottom (Need to check level ordering)
+- Build queue reorder (up/down/top/bottom/delete) check level (Prevent level 10 build before level 9 when reordering)
+- Build queue bulk re-order (multi-select)
 - Map animal / field layout helper
 - Building plan add townhall & residence
 - Auto Demolish queue

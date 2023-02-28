@@ -5,10 +5,6 @@ import { buildings } from "../../static-data/building";
 import moment from 'moment'
 import { BuildingLocation } from "../../types/BuildingTypes";
 import { Village } from "../../types/VillageTypes";
-import { ActionQueueManager } from "../../action/action";
-import NavigateToTownAction from "../../action/navigation/NavigateToTownAction";
-import AutoBuildAction from "../../action/build/AutoBuildAction";
-import { toField } from "../../utils/NavigationUtils";
 import VillageAutoTrainContainer from "./VillageAutoTrainContainer";
 import RowContainer from "../common/RowContainer";
 import ColumnContainer from "../common/ColumnContainer";
@@ -17,6 +13,7 @@ import useItem from "../common/hooks/useItem";
 import Dropdown from "../common/Dropdown"
 import Input, { Scale } from "../common/Input";
 import Button from "../common/Button";
+import VillageBuildQueueContainer from "./VillageBuildQueueContainer";
 
 interface VillageInfoContainerProps {
     village: Village
@@ -27,85 +24,11 @@ const VillageInfoContainer: FC<VillageInfoContainerProps> = ({
 }) => {
     const villages = useLiveQuery(() => db.villages.toArray())
     const villageBuildings = useLiveQuery(() => db.villageBuildings.where('villageId').equals(village.id).sortBy('position'), [village.id])
-    const buildQueue = useLiveQuery(() => db.buildQueue.where('villageId').equals(village.id).sortBy('seq'), [village.id])
     const constructions = useLiveQuery(() => db.currentBuildQueue.where('villageId').equals(village.id).sortBy('targetCompletionTime'), [village.id])
     const fields = villageBuildings?.filter(vb => buildings[vb.buildingId]?.location === BuildingLocation.Field)
     const townBuildings = villageBuildings?.filter(vb => buildings[vb.buildingId]?.location === BuildingLocation.Town)
 
     const { item, updateItem, resetItem } = useItem(village)
-
-    const handleRemoveBuildQueueItem = async (id: string) => {
-        const item = await db.buildQueue.get(id)
-        if (!item)
-            return
-
-        if (item.targetLevel === 1 && buildings[item.buildingId].location === BuildingLocation.Town) {
-            const vb = villageBuildings?.find(e => e.buildingId === item.buildingId && e.position === item.position)
-            if (vb)
-                db.villageBuildings.delete(vb.id)
-        }
-        await db.buildQueue.delete(id)
-    }
-
-    const handleBuildQueueMoveUp = (id: string) => {
-        if (!buildQueue)
-            return
-
-        const curr = buildQueue.find(e => e.id === id)
-        if (!curr)
-            return
-
-        const prev = buildQueue.find(e => e.seq === curr.seq - 1)
-        if (!prev)
-            return
-
-        curr.seq -= 1
-        prev.seq += 1
-
-        db.buildQueue.bulkPut([prev, curr])
-    }
-
-    const handleBuildQueueMoveDown = (id: string) => {
-        if (!buildQueue)
-            return
-
-        const curr = buildQueue.find(e => e.id === id)
-        if (!curr)
-            return
-
-        const next = buildQueue.find(e => e.seq === curr.seq + 1)
-        if (!next)
-            return
-
-        curr.seq += 1
-        next.seq -= 1
-
-        db.buildQueue.bulkPut([curr, next])
-    }
-
-    const clearBuildQueue = async () => {
-        const vbRemove: string[] = []
-        buildQueue?.forEach(item => {
-            if (item.targetLevel === 1 && buildings[item.buildingId].location === BuildingLocation.Town) {
-                const vb = villageBuildings?.find(e => e.buildingId === item.buildingId && e.position === item.position)
-                if (vb) {
-                    vbRemove.push(vb.id)
-                }
-            }
-        })
-
-        await db.villageBuildings.bulkDelete(vbRemove)
-        await db.buildQueue.where('villageId').equals(village.id).delete()
-    }
-
-    const handleAutoBuild = async () => {
-        await ActionQueueManager.begin()
-            .add(NavigateToTownAction, {})
-            .add(AutoBuildAction, {})
-            .done()
-
-        toField()
-    }
 
     const handleSave = async () => {
         await db.villages.put(item)
@@ -204,9 +127,9 @@ const VillageInfoContainer: FC<VillageInfoContainerProps> = ({
                                 <RowContainer>
                                     <span>Target:</span>
                                     <span>(</span>
-                                    <Input scale={Scale.XS} value={item.troopEvadeTargetCoordX} onChange={value => updateItem('troopEvadeTargetCoordX', value)} />
+                                    <Input scale={Scale.XS} value={item.troopEvadeTargetCoordX} onChange={value => updateItem('troopEvadeTargetCoordX', parseInt(value) || 0)} />
                                     <span>, </span>
-                                    <Input scale={Scale.XS} value={item.troopEvadeTargetCoordY} onChange={value => updateItem('troopEvadeTargetCoordY', value)} />
+                                    <Input scale={Scale.XS} value={item.troopEvadeTargetCoordY} onChange={value => updateItem('troopEvadeTargetCoordY', parseInt(value) || 0)} />
                                     <span>)</span>
                                 </RowContainer>
                             </td>
@@ -216,7 +139,6 @@ const VillageInfoContainer: FC<VillageInfoContainerProps> = ({
                             <td>
                                 <RowContainer>
                                     <Button onClick={handleSave}>Save</Button>
-                                    <Button onClick={handleAutoBuild}>Auto Build</Button>
                                 </RowContainer>
                             </td>
                         </tr>
@@ -267,38 +189,13 @@ const VillageInfoContainer: FC<VillageInfoContainerProps> = ({
                     </tbody>
                 </table>
             </div>
-
-            <div>
-                <h3>Build Queue <button onClick={() => clearBuildQueue()}>x</button> </h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Level</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {buildQueue?.map(e =>
-                            <tr key={e.id}>
-                                <td>{buildings[e.buildingId].name}</td>
-                                <td>{e.position}</td>
-                                <td>{e.targetLevel}</td>
-                                <td>
-                                    <button onClick={() => handleRemoveBuildQueueItem(e.id)}>x</button>
-                                    <button onClick={() => handleBuildQueueMoveUp(e.id)}>↑</button>
-                                    <button onClick={() => handleBuildQueueMoveDown(e.id)}>↓</button>
-                                </td>
-                            </tr>
-                        )}
-                    </tbody>
-                </table>
-            </div>
         </RowContainer>
 
         <RowContainer>
             <VillageAutoTrainContainer
+                village={village}
+            />
+            <VillageBuildQueueContainer 
                 village={village}
             />
         </RowContainer>

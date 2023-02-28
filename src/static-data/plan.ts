@@ -761,14 +761,10 @@ export const autoBuildVillage = async (village: Village) => {
                     if (opt.position) {
                         pos = opt.position
                     } else {
-                        while (pos <= 38) {
-                            if (!consolidatedLevels.find(e => e.position === pos)) {
-                                break
-                            } else {
-                                pos++;
-                            }
+                        const occupiedPositions = consolidatedLevels.map(e => e.position)
+                        while (occupiedPositions.includes(pos)) {
+                            pos++;
                         }
-
                         if (pos === 39) {
                             continue
                         }

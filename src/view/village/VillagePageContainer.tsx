@@ -4,7 +4,6 @@ import { db } from "../../database/db";
 import VillageList from "./VillageList";
 import styled from 'styled-components'
 import VillageInfoContainer from "./VillageInfoContainer";
-import { Village } from "../../types/VillageTypes";
 
 const VillagePageStyledContainer = styled.div({
     display: 'flex',
