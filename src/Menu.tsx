@@ -58,6 +58,7 @@ const Menu: FC<MenuProps> = ({
                 )
             }
         </MenuOptionContainer>
+        <div>Build: @@BUILD_TIME@@</div>
         <Switch checked={bot} onChange={setBot} />
     </MenuContainer>
 }
