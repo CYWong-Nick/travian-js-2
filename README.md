@@ -1,7 +1,7 @@
 1. TTD
 - Randomized Click delay (Configurable)
 - Randomized Action Interval (Configurable)
-- Enable disable feature :)
+- Add unstuck action
 - Auto NPC trade
 - Scout report alert
 - Resources full alert
